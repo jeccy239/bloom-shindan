@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import AdUnit from '@/components/AdUnit';
 import { BLOOM_TYPES } from '@/lib/types';
 import type { BloomTypeId, DiagnosisStats } from '@/lib/types';
 import { loadResult } from '@/lib/scoring';
@@ -166,6 +167,11 @@ export default function ResultPage() {
             );
           })}
         </div>
+      </div>
+
+      {/* Ad unit */}
+      <div className="max-w-lg w-full mt-3">
+        <AdUnit adSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_RESULT ?? ''} />
       </div>
 
       {/* Description */}

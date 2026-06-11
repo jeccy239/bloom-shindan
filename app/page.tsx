@@ -1,4 +1,10 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'ブルーム診断 | あなたの本質を解析する',
+  description: '50の問いに答えるだけで、あなたのパーソナリティタイプと戦闘力スコアが算出される。16タイプのブルーム診断。',
+};
 
 const TYPE_LIST = [
   { id: '01', title: '孤高の天才' },
@@ -85,6 +91,15 @@ export default function Home() {
         </div>
 
       </div>
+
+      {/* Footer */}
+      <div className="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
+        <div className="text-[8px] text-gray-300">© 2025 株式会社LEVAN</div>
+        <Link href="/privacy" className="text-[8px] text-gray-300 hover:text-gray-500 transition-colors tracking-widest">
+          プライバシーポリシー
+        </Link>
+      </div>
+
     </div>
   );
 }
