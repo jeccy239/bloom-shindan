@@ -20,7 +20,7 @@ export default function Home() {
         <div>
           {/* Brand */}
           <div className="text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-10">
-            Bloom Diagnosis System
+            ブルーム診断システム
           </div>
 
           {/* Headline */}
@@ -40,9 +40,9 @@ export default function Home() {
           {/* Stats */}
           <div className="grid grid-cols-3 border border-gray-200 divide-x divide-gray-200 mb-10">
             {[
-              { v: '50', u: '問', l: 'QUESTIONS' },
-              { v: '16', u: '種', l: 'TYPES' },
-              { v: '5',  u: '分', l: 'MINUTES' },
+              { v: '50', u: '問', l: '設問数' },
+              { v: '16', u: '種', l: 'タイプ' },
+              { v: '5',  u: '分', l: '所要時間' },
             ].map((s) => (
               <div key={s.l} className="py-4 text-center">
                 <div className="text-xl font-black text-gray-900 leading-none">
@@ -65,7 +65,7 @@ export default function Home() {
         {/* Type index */}
         <div className="mt-12 border-t border-gray-100 pt-6">
           <div className="text-[8px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-4">
-            16 Personality Types
+            16のパーソナリティ
           </div>
           <div className="grid grid-cols-3 gap-y-2.5">
             {TYPE_LIST.map((t) => (

@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 const MESSAGES = [
-  'SCANNING PERSONALITY AXES...',
-  'ANALYZING ENERGY PATTERNS...',
-  'COMPUTING BATTLE POWER...',
-  'FINALIZING TYPE MATCH...',
+  'パーソナリティを分析中...',
+  'エネルギーパターンを解析中...',
+  '戦闘力を計算中...',
+  'タイプを確定中...',
 ];
 
 export default function AnalyzingPage() {
@@ -44,12 +44,12 @@ export default function AnalyzingPage() {
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
       <div className="max-w-xs w-full">
 
-        <div className="text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-10">
-          Bloom Diagnosis
+        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-10">
+          ブルーム診断
         </div>
 
         <div className="text-2xl font-black text-gray-900 mb-1 tracking-tight">
-          ANALYZING
+          解　析　中
         </div>
         <div className="text-[10px] font-mono text-gray-400 mb-10 h-4 animate-fadeInUp" key={msgIndex}>
           {MESSAGES[msgIndex]}

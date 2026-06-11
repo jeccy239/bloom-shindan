@@ -7,11 +7,11 @@ import { buildResult, saveResult, TOTAL_QUESTIONS } from '@/lib/scoring';
 import type { Answer } from '@/lib/types';
 
 const AXIS_LABELS: Record<number, { label: string; short: string }> = {
-  1: { label: 'エネルギー源',   short: 'ENERGY' },
-  2: { label: '思考スタイル',  short: 'THINKING' },
-  3: { label: '環境適性',      short: 'ENVIRONMENT' },
-  4: { label: '変化への態度',  short: 'CHANGE' },
-  5: { label: '表現スタイル',  short: 'EXPRESSION' },
+  1: { label: 'エネルギー源',   short: 'エネルギー' },
+  2: { label: '思考スタイル',  short: '思考スタイル' },
+  3: { label: '環境適性',      short: '環境適性' },
+  4: { label: '変化への態度',  short: '変化への態度' },
+  5: { label: '表現スタイル',  short: '表現スタイル' },
 };
 
 export default function QuizPage() {
@@ -83,8 +83,8 @@ export default function QuizPage() {
       {/* Top bar */}
       <div className="w-full max-w-lg mb-6">
         <div className="flex items-center justify-between mb-3">
-          <div className="text-[9px] font-bold tracking-[0.4em] text-gray-400 uppercase">
-            Bloom 診断 — {axisInfo.short}
+          <div className="text-[9px] font-bold tracking-[0.2em] text-gray-400">
+            ブルーム診断 — {axisInfo.short}
           </div>
           <div className="text-[10px] font-mono font-bold text-gray-400">
             {String(currentIndex + 1).padStart(2, '0')} / {TOTAL_QUESTIONS}
@@ -106,11 +106,14 @@ export default function QuizPage() {
         }`}
       >
         <div className="flex items-center gap-3 mb-5">
-          <span className="text-[9px] font-black tracking-[0.4em] uppercase text-gray-300">
-            Question
+          <span className="text-[9px] font-black tracking-[0.3em] text-gray-300">
+            第
           </span>
           <span className="font-mono text-xs font-bold text-gray-900">
             {String(currentIndex + 1).padStart(2, '0')}
+          </span>
+          <span className="text-[9px] font-black tracking-[0.3em] text-gray-300">
+            問
           </span>
           <div className="flex-1 h-px bg-gray-100" />
           <span className="text-[9px] font-bold tracking-widest text-gray-300 uppercase">

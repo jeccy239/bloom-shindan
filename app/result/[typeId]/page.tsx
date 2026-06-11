@@ -96,10 +96,10 @@ export default function ResultPage() {
 
       {/* Header */}
       <div className="w-full max-w-lg pt-12 pb-8 animate-fadeInUp">
-        <div className="text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-4">
-          Bloom Diagnosis — Result
+        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">
+          ブルーム診断 — 結果
         </div>
-        <div className="text-[9px] font-mono text-gray-300 mb-3">TYPE {typeData.id}</div>
+        <div className="text-[9px] font-mono text-gray-300 mb-3">タイプ {typeData.id}</div>
         <h1 className="text-5xl font-black text-gray-900 leading-none mb-3">
           {typeData.catchTitle}
         </h1>
@@ -110,8 +110,8 @@ export default function ResultPage() {
       {/* Battle Power */}
       <div className="max-w-lg w-full animate-scaleIn">
         <div className="bg-gray-900 p-7 text-white">
-          <div className="text-[9px] font-bold tracking-[0.5em] uppercase mb-2" style={{ color: '#c9a84c' }}>
-            Battle Power
+          <div className="text-[9px] font-bold tracking-[0.3em] mb-2" style={{ color: '#c9a84c' }}>
+            戦　闘　力
           </div>
           <div className="text-7xl font-black tracking-tight tabular-nums leading-none mb-4">
             {displayBP.toLocaleString()}
@@ -138,8 +138,8 @@ export default function ResultPage() {
         className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
         style={{ animationDelay: '0.1s', opacity: 0 }}
       >
-        <div className="text-[9px] font-bold tracking-[0.4em] uppercase text-gray-300 mb-5">
-          Personality Axes
+        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-5">
+          5軸スコア
         </div>
         <div className="flex flex-col gap-5">
           {STAT_LABELS.map(({ key, label }) => {
@@ -173,8 +173,8 @@ export default function ResultPage() {
         className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
         style={{ animationDelay: '0.15s', opacity: 0 }}
       >
-        <div className="text-[9px] font-bold tracking-[0.4em] uppercase text-gray-300 mb-3">
-          Profile
+        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-3">
+          プロフィール
         </div>
         <p className="text-gray-700 text-sm leading-relaxed">{typeData.description}</p>
       </div>
@@ -185,7 +185,7 @@ export default function ResultPage() {
         style={{ animationDelay: '0.2s', opacity: 0 }}
       >
         <div className="border border-gray-200 p-5">
-          <div className="text-[9px] font-bold tracking-[0.4em] uppercase text-gray-300 mb-4">Jobs</div>
+          <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">向いてる仕事</div>
           <ul className="flex flex-col gap-3">
             {typeData.jobs.map((job) => (
               <li key={job} className="text-xs text-gray-700 flex items-center gap-2">
@@ -196,7 +196,7 @@ export default function ResultPage() {
           </ul>
         </div>
         <div className="border border-gray-200 p-5">
-          <div className="text-[9px] font-bold tracking-[0.4em] uppercase text-gray-300 mb-4">Hobbies</div>
+          <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">趣味・習慣</div>
           <ul className="flex flex-col gap-3">
             {typeData.hobbies.map((hobby) => (
               <li key={hobby} className="text-xs text-gray-700 flex items-center gap-2">
@@ -213,8 +213,8 @@ export default function ResultPage() {
         className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
         style={{ animationDelay: '0.25s', opacity: 0 }}
       >
-        <div className="text-[9px] font-bold tracking-[0.4em] uppercase text-gray-300 mb-4">
-          Best Match
+        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">
+          最高の相棒
         </div>
         <Link
           href={`/result/${typeData.compatibleType}`}
