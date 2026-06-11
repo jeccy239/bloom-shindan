@@ -26,6 +26,18 @@ export default function QuizPage() {
   const progress = (currentIndex / TOTAL_QUESTIONS) * 100;
   const axisInfo = AXIS_LABELS[current.axis];
 
+  const handleBack = useCallback(() => {
+    if (isTransitioning || selected || currentIndex === 0) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setAnswers((prev) => prev.slice(0, -1));
+      setCurrentIndex(currentIndex - 1);
+      setSelected(null);
+      setIsTransitioning(false);
+      setKey((k) => k + 1);
+    }, 200);
+  }, [currentIndex, isTransitioning, selected]);
+
   const handleSelect = useCallback(
     (label: 'A' | 'B' | 'C' | 'D') => {
       if (isTransitioning || selected) return;
@@ -83,8 +95,21 @@ export default function QuizPage() {
       {/* Top bar */}
       <div className="w-full max-w-lg mb-6">
         <div className="flex items-center justify-between mb-3">
-          <div className="text-[9px] font-bold tracking-[0.2em] text-gray-400">
-            ブルーム診断 — {axisInfo.short}
+          <div className="flex items-center gap-3">
+            {currentIndex > 0 && (
+              <button
+                onClick={handleBack}
+                disabled={!!selected || isTransitioning}
+                className="text-[9px] font-bold text-gray-400 hover:text-gray-700 disabled:opacity-30 transition-colors tracking-widest"
+              >
+                ← 前の問題
+              </button>
+            )}
+            {currentIndex === 0 && (
+              <div className="text-[9px] font-bold tracking-[0.2em] text-gray-400">
+                ブルーム診断 — {axisInfo.short}
+              </div>
+            )}
           </div>
           <div className="text-[10px] font-mono font-bold text-gray-400">
             {String(currentIndex + 1).padStart(2, '0')} / {TOTAL_QUESTIONS}
