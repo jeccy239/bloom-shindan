@@ -43,7 +43,14 @@ export default function QuizPage() {
         if (currentIndex + 1 >= TOTAL_QUESTIONS) {
           const result = buildResult(updatedAnswers);
           saveResult(result);
-          router.push(`/analyzing/${result.typeId}`);
+          const s = [
+            result.stats.analysis,
+            result.stats.action,
+            result.stats.empathy,
+            result.stats.expression,
+            result.stats.change,
+          ].join(',');
+          router.push(`/analyzing/${result.typeId}?bp=${result.battlePower}&s=${s}`);
         } else {
           setIsTransitioning(true);
           setTimeout(() => {

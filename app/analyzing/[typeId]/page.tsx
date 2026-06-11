@@ -29,7 +29,8 @@ export default function AnalyzingPage() {
     }, 50);
 
     const redirect = setTimeout(() => {
-      router.push(`/result/${typeId}`);
+      const search = typeof window !== 'undefined' ? window.location.search : '';
+      router.push(`/result/${typeId}${search}`);
     }, 3300);
 
     return () => {

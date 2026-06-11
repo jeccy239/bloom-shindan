@@ -27,6 +27,17 @@ export default function ResultPage() {
 
   useEffect(() => {
     setMounted(true);
+    // URLパラメータを最優先（デバイス間でシェアしても一致する）
+    const params = new URLSearchParams(window.location.search);
+    const urlBP = params.get('bp');
+    const urlS  = params.get('s');
+    if (urlBP && urlS) {
+      const [analysis, action, empathy, expression, change] = urlS.split(',').map(Number);
+      setUserBP(parseInt(urlBP));
+      setUserStats({ analysis, action, empathy, expression, change });
+      return;
+    }
+    // fallback: localStorage
     const saved = loadResult();
     if (saved && saved.typeId === typeId) {
       setUserStats(saved.stats);
