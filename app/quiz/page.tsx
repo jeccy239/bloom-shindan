@@ -95,21 +95,8 @@ export default function QuizPage() {
       {/* Top bar */}
       <div className="w-full max-w-lg mb-6">
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
-            {currentIndex > 0 && (
-              <button
-                onClick={handleBack}
-                disabled={!!selected || isTransitioning}
-                className="text-[9px] font-bold text-gray-400 hover:text-gray-700 disabled:opacity-30 transition-colors tracking-widest"
-              >
-                ← 前の問題
-              </button>
-            )}
-            {currentIndex === 0 && (
-              <div className="text-[9px] font-bold tracking-[0.2em] text-gray-400">
-                ブルーム診断 — {axisInfo.short}
-              </div>
-            )}
+          <div className="text-[9px] font-bold tracking-[0.2em] text-gray-400">
+            ブルーム診断 — {axisInfo.short}
           </div>
           <div className="text-[10px] font-mono font-bold text-gray-400">
             {String(currentIndex + 1).padStart(2, '0')} / {TOTAL_QUESTIONS}
@@ -200,6 +187,19 @@ export default function QuizPage() {
             }}
           />
         ))}
+      </div>
+
+      {/* Back button */}
+      <div className="max-w-lg w-full mt-4">
+        {currentIndex > 0 && (
+          <button
+            onClick={handleBack}
+            disabled={!!selected || isTransitioning}
+            className="text-[9px] font-bold text-gray-400 hover:text-gray-700 disabled:opacity-30 transition-colors tracking-widest"
+          >
+            ← 前の問題
+          </button>
+        )}
       </div>
     </div>
   );
