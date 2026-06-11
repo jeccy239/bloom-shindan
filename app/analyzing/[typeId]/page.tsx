@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 const MESSAGES = [
-  'エネルギーを分析中...',
-  '思考スタイルを解析中...',
-  '環境適性を照合中...',
-  'パーソナリティを確定中...',
+  'SCANNING PERSONALITY AXES...',
+  'ANALYZING ENERGY PATTERNS...',
+  'COMPUTING BATTLE POWER...',
+  'FINALIZING TYPE MATCH...',
 ];
 
 export default function AnalyzingPage() {
@@ -24,8 +24,7 @@ export default function AnalyzingPage() {
     const progInterval = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) return 100;
-        const remaining = 100 - p;
-        return p + Math.max(1, remaining * 0.04);
+        return p + Math.max(0.5, (100 - p) * 0.04);
       });
     }, 50);
 
@@ -41,42 +40,51 @@ export default function AnalyzingPage() {
   }, [router, typeId]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
-      <div className="text-center max-w-sm w-full">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
+      <div className="max-w-xs w-full">
 
-        <div className="text-7xl mb-8 animate-float">🌸</div>
-
-        <h2 className="text-xl font-bold text-gray-900 mb-2">
-          あなたのタイプを分析中
-        </h2>
-        <div className="h-5 mb-8">
-          <p className="text-sm text-gray-400 animate-fadeInUp" key={msgIndex}>
-            {MESSAGES[msgIndex]}
-          </p>
+        <div className="text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-10">
+          Bloom Diagnosis
         </div>
 
-        <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-3">
+        <div className="text-2xl font-black text-gray-900 mb-1 tracking-tight">
+          ANALYZING
+        </div>
+        <div className="text-[10px] font-mono text-gray-400 mb-10 h-4 animate-fadeInUp" key={msgIndex}>
+          {MESSAGES[msgIndex]}
+        </div>
+
+        {/* Progress bar */}
+        <div className="h-px bg-gray-200 relative overflow-hidden mb-3">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-pink-400 to-rose-400"
+            className="h-full absolute top-0 left-0"
             style={{
               width: `${Math.min(progress, 100)}%`,
+              background: '#c9a84c',
               transition: 'width 0.1s ease',
             }}
           />
         </div>
-        <p className="text-xs text-gray-300 font-mono">{Math.round(Math.min(progress, 100))}%</p>
 
-        <div className="mt-8 flex justify-center gap-2">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="w-2 h-2 rounded-full bg-pink-300"
-              style={{
-                animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
-              }}
-            />
-          ))}
+        <div className="flex justify-between items-center">
+          <div className="text-[10px] font-mono text-gray-400 tabular-nums">
+            {Math.round(Math.min(progress, 100)).toString().padStart(3, '0')}%
+          </div>
+          <div className="flex gap-1">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="w-1 h-1"
+                style={{
+                  background: '#c9a84c',
+                  opacity: msgIndex >= i ? 1 : 0.2,
+                  transition: 'opacity 0.3s ease',
+                }}
+              />
+            ))}
+          </div>
         </div>
+
       </div>
     </div>
   );

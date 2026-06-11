@@ -1,63 +1,82 @@
 import Link from 'next/link';
 
-const TYPE_PREVIEWS = [
-  { id: '01', title: '孤高の天才', emoji: '🧠' },
-  { id: '09', title: '無謀な開拓者', emoji: '🔥' },
-  { id: '03', title: '共感の達人', emoji: '💞' },
-  { id: '10', title: '熱狂の伝道師', emoji: '📣' },
-  { id: '15', title: '言葉の魔術師', emoji: '✨' },
-  { id: '04', title: '不動の守護者', emoji: '🛡️' },
+const TYPE_LIST = [
+  { id: '01', title: '孤高の天才' },
+  { id: '02', title: '影の参謀' },
+  { id: '03', title: '共感の達人' },
+  { id: '04', title: '不動の守護者' },
+  { id: '05', title: '時代を創る者' },
+  { id: '06', title: '冷静な支配者' },
+  { id: '09', title: '無謀な開拓者' },
+  { id: '10', title: '熱狂の伝道師' },
+  { id: '15', title: '言葉の魔術師' },
 ];
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-white flex flex-col px-6 py-12">
+      <div className="max-w-sm mx-auto w-full flex flex-col min-h-[90vh] justify-between">
 
-      <div className="max-w-md w-full text-center animate-fadeInUp">
+        <div>
+          {/* Brand */}
+          <div className="text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-10">
+            Bloom Diagnosis System
+          </div>
 
-        <div className="text-6xl mb-4">🌸</div>
-        <div className="text-xs font-semibold tracking-[0.3em] text-pink-400 uppercase mb-3">
-          Bloom Diagnosis
+          {/* Headline */}
+          <h1 className="text-5xl font-black text-gray-900 leading-[1.05] mb-5">
+            あなたの<br />本質を<br />解析する。
+          </h1>
+
+          {/* Gold divider */}
+          <div className="w-8 h-0.5 mb-5" style={{ background: '#c9a84c' }} />
+
+          <p className="text-xs text-gray-500 leading-loose mb-10">
+            50の問いに答えるだけで、<br />
+            あなたのパーソナリティタイプと<br />
+            戦闘力スコアが算出される。
+          </p>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 border border-gray-200 divide-x divide-gray-200 mb-10">
+            {[
+              { v: '50', u: '問', l: 'QUESTIONS' },
+              { v: '16', u: '種', l: 'TYPES' },
+              { v: '5',  u: '分', l: 'MINUTES' },
+            ].map((s) => (
+              <div key={s.l} className="py-4 text-center">
+                <div className="text-xl font-black text-gray-900 leading-none">
+                  {s.v}<span className="text-xs font-bold">{s.u}</span>
+                </div>
+                <div className="text-[8px] font-bold tracking-[0.3em] text-gray-400 mt-1.5">{s.l}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <Link
+            href="/quiz"
+            className="block w-full py-4 bg-gray-900 text-white font-bold text-xs tracking-[0.3em] uppercase text-center hover:bg-black transition-colors"
+          >
+            診断スタート →
+          </Link>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          あなたの咲き方を<br />見つけよう
-        </h1>
-        <p className="text-gray-400 text-sm leading-relaxed mb-8">
-          50問の質問に答えるだけで、<br />
-          あなただけのタイプと戦闘力がわかる。
-        </p>
 
-        <div className="grid grid-cols-3 gap-3 mb-8">
-          {[
-            { value: '50問', label: '質問数' },
-            { value: '16種', label: 'タイプ数' },
-            { value: '約5分', label: '所要時間' },
-          ].map((stat) => (
-            <div key={stat.label} className="rounded-2xl border border-gray-100 py-3 px-2 bg-gray-50">
-              <div className="text-lg font-bold text-gray-800">{stat.value}</div>
-              <div className="text-xs text-gray-400 mt-0.5">{stat.label}</div>
-            </div>
-          ))}
+        {/* Type index */}
+        <div className="mt-12 border-t border-gray-100 pt-6">
+          <div className="text-[8px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-4">
+            16 Personality Types
+          </div>
+          <div className="grid grid-cols-3 gap-y-2.5">
+            {TYPE_LIST.map((t) => (
+              <div key={t.id} className="flex items-center gap-1.5">
+                <span className="text-[8px] font-mono text-gray-300">{t.id}</span>
+                <span className="text-[10px] text-gray-400">{t.title}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <Link
-          href="/quiz"
-          className="block w-full py-4 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-400 text-white font-bold text-base shadow-md shadow-pink-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:scale-95"
-        >
-          診断スタート ✨
-        </Link>
-
-        <p className="text-xs text-gray-300 mt-4">
-          回答は保存されません。何度でも試せます。
-        </p>
-      </div>
-
-      <div className="mt-10 flex flex-wrap justify-center gap-2 max-w-md">
-        {TYPE_PREVIEWS.map((t) => (
-          <span key={t.id} className="text-xs px-3 py-1.5 rounded-full border border-gray-100 text-gray-400">
-            {t.emoji} {t.title}
-          </span>
-        ))}
       </div>
     </div>
   );

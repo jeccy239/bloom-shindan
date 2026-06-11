@@ -6,12 +6,12 @@ import { questions } from '@/lib/questions';
 import { buildResult, saveResult, TOTAL_QUESTIONS } from '@/lib/scoring';
 import type { Answer } from '@/lib/types';
 
-const AXIS_LABELS: Record<number, { label: string; emoji: string; color: string }> = {
-  1: { label: 'エネルギー源', emoji: '⚡', color: 'from-yellow-400 to-orange-400' },
-  2: { label: '思考スタイル', emoji: '🧠', color: 'from-blue-400 to-indigo-400' },
-  3: { label: '環境適性',   emoji: '🌐', color: 'from-emerald-400 to-teal-400' },
-  4: { label: '変化への態度', emoji: '🔄', color: 'from-purple-400 to-pink-400' },
-  5: { label: '表現スタイル', emoji: '📣', color: 'from-rose-400 to-red-400' },
+const AXIS_LABELS: Record<number, { label: string; short: string }> = {
+  1: { label: 'エネルギー源',   short: 'ENERGY' },
+  2: { label: '思考スタイル',  short: 'THINKING' },
+  3: { label: '環境適性',      short: 'ENVIRONMENT' },
+  4: { label: '変化への態度',  short: 'CHANGE' },
+  5: { label: '表現スタイル',  short: 'EXPRESSION' },
 };
 
 export default function QuizPage() {
@@ -71,51 +71,51 @@ export default function QuizPage() {
   }, [handleSelect]);
 
   return (
-    <div className="relative min-h-screen bg-white flex flex-col items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-5 py-8">
 
       {/* Top bar */}
-      <div className="w-full max-w-xl mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold text-pink-400 tracking-widest uppercase">
-            Bloom 診断
-          </span>
-          <span className="text-xs font-bold text-gray-400">
-            {currentIndex + 1} / {TOTAL_QUESTIONS}
-          </span>
+      <div className="w-full max-w-lg mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <div className="text-[9px] font-bold tracking-[0.4em] text-gray-400 uppercase">
+            Bloom 診断 — {axisInfo.short}
+          </div>
+          <div className="text-[10px] font-mono font-bold text-gray-400">
+            {String(currentIndex + 1).padStart(2, '0')} / {TOTAL_QUESTIONS}
+          </div>
         </div>
-        <div className="h-2 rounded-full bg-pink-100 overflow-hidden">
+        <div className="h-px bg-gray-200 w-full relative overflow-hidden">
           <div
-            className={`h-full rounded-full bg-gradient-to-r ${axisInfo.color} progress-fill`}
-            style={{ width: `${progress}%` }}
+            className="h-full absolute top-0 left-0 progress-fill"
+            style={{ width: `${progress}%`, background: '#c9a84c' }}
           />
-        </div>
-        <div className="mt-2 flex items-center gap-1.5">
-          <span className="text-base">{axisInfo.emoji}</span>
-          <span className="text-xs text-gray-400">{axisInfo.label}に関する質問</span>
         </div>
       </div>
 
       {/* Question card */}
       <div
         key={key}
-        className={`bg-white border border-gray-100 rounded-3xl shadow-sm max-w-xl w-full p-7 ${
+        className={`bg-white border border-gray-200 max-w-lg w-full p-7 ${
           isTransitioning ? 'opacity-0 translate-x-4 transition-all duration-300' : 'animate-scaleIn'
         }`}
       >
-        <div className="flex items-center gap-2 mb-5">
-          <span
-            className={`inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br ${axisInfo.color} text-white text-xs font-bold shadow-sm`}
-          >
-            Q
+        <div className="flex items-center gap-3 mb-5">
+          <span className="text-[9px] font-black tracking-[0.4em] uppercase text-gray-300">
+            Question
           </span>
-          <span className="text-xs text-gray-400 font-medium">Question {currentIndex + 1}</span>
+          <span className="font-mono text-xs font-bold text-gray-900">
+            {String(currentIndex + 1).padStart(2, '0')}
+          </span>
+          <div className="flex-1 h-px bg-gray-100" />
+          <span className="text-[9px] font-bold tracking-widest text-gray-300 uppercase">
+            {axisInfo.label}
+          </span>
         </div>
 
-        <p className="text-gray-800 text-lg font-bold leading-snug mb-6">
+        <p className="text-gray-900 text-lg font-bold leading-snug mb-7">
           {current.text}
         </p>
 
-        <div className="grid grid-cols-1 gap-2.5">
+        <div className="flex flex-col gap-2">
           {current.choices.map((choice) => {
             const isSelected = selected === choice.label;
             const isOther = selected !== null && !isSelected;
@@ -124,61 +124,45 @@ export default function QuizPage() {
                 key={choice.label}
                 onClick={() => handleSelect(choice.label)}
                 disabled={!!selected}
-                className={`option-btn relative w-full text-left rounded-2xl border-2 px-4 py-3.5 font-medium text-sm leading-relaxed transition-all
-                  ${
-                    isSelected
-                      ? 'border-pink-400 bg-gradient-to-r from-pink-50 to-rose-50 text-pink-700 selected shadow-md shadow-pink-200/50'
-                      : isOther
-                      ? 'border-gray-100 bg-gray-50/50 text-gray-300'
-                      : 'border-pink-100 bg-white hover:border-pink-300 hover:bg-pink-50/40 text-gray-700'
-                  }
-                `}
+                className={`option-btn w-full text-left border px-4 py-3.5 text-sm transition-all ${
+                  isSelected
+                    ? 'selected border-gray-900 bg-gray-900 text-white'
+                    : isOther
+                    ? 'border-gray-100 text-gray-300'
+                    : 'border-gray-200 text-gray-700 hover:border-gray-400'
+                }`}
               >
                 <div className="flex items-start gap-3">
                   <span
-                    className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold mt-0.5
-                      ${
-                        isSelected
-                          ? 'border-pink-500 bg-pink-500 text-white'
-                          : isOther
-                          ? 'border-gray-200 text-gray-300'
-                          : 'border-pink-200 text-pink-400'
-                      }
+                    className={`flex-shrink-0 w-5 h-5 border flex items-center justify-center text-[10px] font-black mt-0.5
+                      ${isSelected ? 'border-white text-white' : isOther ? 'border-gray-100 text-gray-300' : 'border-gray-300 text-gray-400'}
                     `}
                   >
                     {choice.label}
                   </span>
                   <span>{choice.text}</span>
                 </div>
-                {isSelected && (
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-500 text-lg">✓</span>
-                )}
               </button>
             );
           })}
         </div>
 
-        <p className="text-center text-xs text-gray-300 mt-5">
-          キーボードの{' '}
+        <div className="flex gap-1 mt-5 justify-center">
           {(['A', 'B', 'C', 'D'] as const).map((k) => (
-            <kbd key={k} className="px-1.5 py-0.5 rounded bg-gray-100 text-gray-400 font-mono text-xs mx-0.5">{k}</kbd>
+            <kbd key={k} className="text-[9px] px-1.5 py-0.5 border border-gray-100 text-gray-300 font-mono">{k}</kbd>
           ))}
-          {' '}でも選べます
-        </p>
+        </div>
       </div>
 
-      {/* Progress dots */}
-      <div className="mt-6 flex gap-1 flex-wrap justify-center max-w-xs">
+      {/* Progress segments */}
+      <div className="mt-5 flex gap-px max-w-lg w-full">
         {questions.map((_, i) => (
           <div
             key={i}
-            className={`rounded-full transition-all duration-300 ${
-              i < currentIndex
-                ? 'w-2 h-2 bg-pink-400'
-                : i === currentIndex
-                ? 'w-3 h-2 bg-rose-400'
-                : 'w-2 h-2 bg-pink-100'
-            }`}
+            className="flex-1 h-1"
+            style={{
+              background: i < currentIndex ? '#c9a84c' : i === currentIndex ? '#0a0a0a' : '#e8e8e8',
+            }}
           />
         ))}
       </div>
