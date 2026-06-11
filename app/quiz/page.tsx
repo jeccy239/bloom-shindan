@@ -63,9 +63,7 @@ export default function QuizPage() {
   }, [current, handleSelect]);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 py-8">
-      {/* Background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50" />
+    <div className="relative min-h-screen bg-white flex flex-col items-center justify-center px-4 py-8">
 
       {/* Top bar */}
       <div className="w-full max-w-xl mb-6">
@@ -94,7 +92,7 @@ export default function QuizPage() {
       {/* Question card */}
       <div
         key={key}
-        className={`glass-card rounded-3xl shadow-xl shadow-purple-100/50 max-w-xl w-full p-8 ${
+        className={`bg-white border border-gray-100 rounded-3xl shadow-sm max-w-xl w-full p-8 ${
           isTransitioning ? 'opacity-0 translate-x-4 transition-all duration-300' : 'animate-scaleIn'
         }`}
       >

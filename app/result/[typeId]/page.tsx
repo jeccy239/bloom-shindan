@@ -53,9 +53,7 @@ export default function ResultPage() {
   const pct = result?.percentages;
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center pb-16 px-4">
-      {/* Gradient background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50" />
+    <div className="relative min-h-screen bg-white flex flex-col items-center pb-16 px-4">
 
       {/* Hero section */}
       <div className="w-full max-w-xl pt-10 animate-fadeInUp">
@@ -87,7 +85,7 @@ export default function ResultPage() {
       {/* Score bars */}
       {pct && (
         <div
-          className="glass-card rounded-3xl shadow-lg shadow-purple-100/50 max-w-xl w-full mt-5 p-6 animate-fadeInUp"
+          className="bg-white border border-gray-100 rounded-3xl shadow-sm max-w-xl w-full mt-5 p-6 animate-fadeInUp"
           style={{ animationDelay: '0.1s', opacity: 0 }}
         >
           <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">
@@ -139,7 +137,7 @@ export default function ResultPage() {
 
       {/* Description */}
       <div
-        className="glass-card rounded-3xl shadow-lg shadow-purple-100/50 max-w-xl w-full mt-5 p-6 animate-fadeInUp"
+        className="bg-white border border-gray-100 rounded-3xl shadow-sm max-w-xl w-full mt-5 p-6 animate-fadeInUp"
         style={{ animationDelay: '0.15s', opacity: 0 }}
       >
         <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">
@@ -165,7 +163,7 @@ export default function ResultPage() {
 
       {/* Strengths & Challenges */}
       <div className="max-w-xl w-full mt-5 grid grid-cols-1 gap-4 animate-fadeInUp" style={{ animationDelay: '0.2s', opacity: 0 }}>
-        <div className="glass-card rounded-3xl shadow-lg shadow-purple-100/50 p-6">
+        <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-6">
           <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-3">
             ✨ あなたの強み
           </h2>
@@ -178,7 +176,7 @@ export default function ResultPage() {
             ))}
           </ul>
         </div>
-        <div className="glass-card rounded-3xl shadow-lg shadow-purple-100/50 p-6">
+        <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-6">
           <h2 className="text-sm font-bold text-rose-500 uppercase tracking-widest mb-3">
             🌱 成長のヒント
           </h2>
@@ -195,7 +193,7 @@ export default function ResultPage() {
 
       {/* Compatible types */}
       <div
-        className="glass-card rounded-3xl shadow-lg shadow-purple-100/50 max-w-xl w-full mt-5 p-6 animate-fadeInUp"
+        className="bg-white border border-gray-100 rounded-3xl shadow-sm max-w-xl w-full mt-5 p-6 animate-fadeInUp"
         style={{ animationDelay: '0.25s', opacity: 0 }}
       >
         <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">
@@ -223,7 +221,7 @@ export default function ResultPage() {
 
       {/* All 16 types */}
       <div
-        className="glass-card rounded-3xl shadow-lg shadow-purple-100/50 max-w-xl w-full mt-5 p-6 animate-fadeInUp"
+        className="bg-white border border-gray-100 rounded-3xl shadow-sm max-w-xl w-full mt-5 p-6 animate-fadeInUp"
         style={{ animationDelay: '0.3s', opacity: 0 }}
       >
         <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">
