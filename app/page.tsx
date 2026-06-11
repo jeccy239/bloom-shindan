@@ -1,13 +1,20 @@
 import Link from 'next/link';
 
+const TYPE_PREVIEWS = [
+  { id: '01', title: '孤高の天才', emoji: '🧠' },
+  { id: '09', title: '無謀な開拓者', emoji: '🔥' },
+  { id: '03', title: '共感の達人', emoji: '💞' },
+  { id: '10', title: '熱狂の伝道師', emoji: '📣' },
+  { id: '15', title: '言葉の魔術師', emoji: '✨' },
+  { id: '04', title: '不動の守護者', emoji: '🛡️' },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 py-16">
 
-      {/* Main card */}
       <div className="max-w-md w-full text-center animate-fadeInUp">
 
-        {/* Logo */}
         <div className="text-6xl mb-4">🌸</div>
         <div className="text-xs font-semibold tracking-[0.3em] text-pink-400 uppercase mb-3">
           Bloom Diagnosis
@@ -17,10 +24,9 @@ export default function Home() {
         </h1>
         <p className="text-gray-400 text-sm leading-relaxed mb-8">
           50問の質問に答えるだけで、<br />
-          あなただけの花タイプがわかる。
+          あなただけのタイプと戦闘力がわかる。
         </p>
 
-        {/* Stats */}
         <div className="grid grid-cols-3 gap-3 mb-8">
           {[
             { value: '50問', label: '質問数' },
@@ -34,7 +40,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* CTA */}
         <Link
           href="/quiz"
           className="block w-full py-4 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-400 text-white font-bold text-base shadow-md shadow-pink-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 active:scale-95"
@@ -47,11 +52,10 @@ export default function Home() {
         </p>
       </div>
 
-      {/* Type badges */}
       <div className="mt-10 flex flex-wrap justify-center gap-2 max-w-md">
-        {['🌸 コスモス', '🌻 ひまわり', '🌹 バラ', '💜 ラベンダー', '🌷 チューリップ', '🌵 サボテン'].map((t) => (
-          <span key={t} className="text-xs px-3 py-1.5 rounded-full border border-gray-100 text-gray-400">
-            {t}
+        {TYPE_PREVIEWS.map((t) => (
+          <span key={t.id} className="text-xs px-3 py-1.5 rounded-full border border-gray-100 text-gray-400">
+            {t.emoji} {t.title}
           </span>
         ))}
       </div>
