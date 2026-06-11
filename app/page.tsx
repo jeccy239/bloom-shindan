@@ -7,9 +7,16 @@ const TYPE_LIST = [
   { id: '04', title: '不動の守護者' },
   { id: '05', title: '時代を創る者' },
   { id: '06', title: '冷静な支配者' },
+  { id: '07', title: '未来の預言者' },
+  { id: '08', title: '完璧な設計者' },
   { id: '09', title: '無謀な開拓者' },
   { id: '10', title: '熱狂の伝道師' },
+  { id: '11', title: '孤高の職人' },
+  { id: '12', title: '型破りの革命家' },
+  { id: '13', title: '魂の扇動者' },
+  { id: '14', title: '現場の守護神' },
   { id: '15', title: '言葉の魔術師' },
+  { id: '16', title: '魂の癒し手' },
 ];
 
 export default function Home() {
