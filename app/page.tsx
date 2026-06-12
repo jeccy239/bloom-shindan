@@ -33,17 +33,17 @@ const STATS = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white flex flex-col px-6 py-12">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col px-6 py-12">
       <div className="max-w-sm mx-auto w-full flex flex-col min-h-[90vh] justify-between">
 
         <div>
           {/* Brand */}
-          <div className="animate-fadeInUp delay-100 text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-10">
+          <div className="animate-fadeInUp delay-100 text-[9px] font-bold tracking-[0.5em] text-white/20 uppercase mb-10">
             ブルーム診断
           </div>
 
           {/* Headline */}
-          <h1 className="animate-fadeInUp delay-200 text-5xl font-black text-gray-900 leading-[1.05] mb-5">
+          <h1 className="animate-fadeInUp delay-200 text-5xl font-black text-white leading-[1.05] mb-5">
             あなたの<br />本質を<br />分析する。
           </h1>
 
@@ -53,21 +53,21 @@ export default function Home() {
             style={{ background: '#c9a84c' }}
           />
 
-          <p className="animate-fadeInUp delay-400 text-xs text-gray-500 leading-loose mb-10">
+          <p className="animate-fadeInUp delay-400 text-xs text-white/40 leading-loose mb-10">
             50の問いに答えるだけで、<br />
             あなたのパーソナリティタイプと<br />
             戦闘力スコアが算出される。
           </p>
 
           {/* Stats */}
-          <div className="animate-fadeInUp delay-500 grid grid-cols-3 border border-gray-200 divide-x divide-gray-200 mb-10">
+          <div className="animate-fadeInUp delay-500 grid grid-cols-3 border border-white/8 divide-x divide-white/8 mb-10">
             {STATS.map((s) => (
               <div key={s.l} className="py-4 text-center">
-                <div className="font-black text-gray-900 leading-none"
+                <div className="font-black text-white leading-none"
                   style={{ fontSize: s.v.length > 3 ? '0.85rem' : '1.25rem' }}>
                   {s.v}<span className="text-xs font-bold">{s.u}</span>
                 </div>
-                <div className="text-[8px] font-bold tracking-[0.3em] text-gray-400 mt-1.5">{s.l}</div>
+                <div className="text-[8px] font-bold tracking-[0.3em] text-white/30 mt-1.5">{s.l}</div>
               </div>
             ))}
           </div>
@@ -76,7 +76,7 @@ export default function Home() {
           <div className="animate-fadeInUp delay-600">
             <Link
               href="/quiz"
-              className="block w-full py-4 bg-gray-900 text-white font-bold text-xs tracking-[0.3em] uppercase text-center hover:bg-black transition-colors"
+              className="block w-full py-4 bg-white text-[#0a0a0a] font-bold text-xs tracking-[0.3em] uppercase text-center hover:bg-white/90 transition-colors"
             >
               診断スタート →
             </Link>
@@ -84,15 +84,15 @@ export default function Home() {
         </div>
 
         {/* Type index */}
-        <div className="animate-fadeInUp delay-700 mt-12 border-t border-gray-100 pt-6">
-          <div className="text-[8px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-4">
+        <div className="animate-fadeInUp delay-700 mt-12 border-t border-white/8 pt-6">
+          <div className="text-[8px] font-bold tracking-[0.5em] text-white/20 uppercase mb-4">
             16のパーソナリティ
           </div>
           <div className="grid grid-cols-3 gap-y-2.5">
             {TYPE_LIST.map((t) => (
               <div key={t.id} className="flex items-center gap-1.5">
-                <span className="text-[8px] font-mono text-gray-300">{t.id}</span>
-                <span className="text-[10px] text-gray-400">{t.title}</span>
+                <span className="text-[8px] font-mono text-white/20">{t.id}</span>
+                <span className="text-[10px] text-white/30">{t.title}</span>
               </div>
             ))}
           </div>
@@ -101,9 +101,9 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <div className="animate-fadeInUp delay-800 mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
-        <div className="text-[8px] text-gray-300">© 2025 株式会社LEVAN</div>
-        <Link href="/privacy" className="text-[8px] text-gray-300 hover:text-gray-500 transition-colors tracking-widest">
+      <div className="animate-fadeInUp delay-800 mt-8 pt-6 border-t border-white/8 flex justify-between items-center">
+        <div className="text-[8px] text-white/20">© 2025 株式会社LEVAN</div>
+        <Link href="/privacy" className="text-[8px] text-white/20 hover:text-white/50 transition-colors tracking-widest">
           プライバシーポリシー
         </Link>
       </div>

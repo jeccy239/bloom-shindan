@@ -90,19 +90,19 @@ export default function QuizPage() {
   }, [handleSelect]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-5 py-8">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center px-5 py-8">
 
       {/* Top bar */}
       <div className="w-full max-w-lg mb-6">
         <div className="flex items-center justify-between mb-3">
-          <div className="text-[9px] font-bold tracking-[0.2em] text-gray-400">
+          <div className="text-[9px] font-bold tracking-[0.2em] text-white/30">
             ブルーム診断 — {axisInfo.short}
           </div>
-          <div className="text-[10px] font-mono font-bold text-gray-400">
+          <div className="text-[10px] font-mono font-bold text-white/30">
             {String(currentIndex + 1).padStart(2, '0')} / {TOTAL_QUESTIONS}
           </div>
         </div>
-        <div className="h-px bg-gray-200 w-full relative overflow-hidden">
+        <div className="h-px bg-white/8 w-full relative overflow-hidden">
           <div
             className="h-full absolute top-0 left-0 progress-fill"
             style={{ width: `${progress}%`, background: '#c9a84c' }}
@@ -113,27 +113,27 @@ export default function QuizPage() {
       {/* Question card */}
       <div
         key={key}
-        className={`bg-white border border-gray-200 max-w-lg w-full p-7 ${
+        className={`border border-white/8 max-w-lg w-full p-7 ${
           isTransitioning ? 'opacity-0 translate-x-4 transition-all duration-300' : 'animate-scaleIn'
         }`}
       >
         <div className="flex items-center gap-3 mb-5">
-          <span className="text-[9px] font-black tracking-[0.3em] text-gray-300">
+          <span className="text-[9px] font-black tracking-[0.3em] text-white/20">
             第
           </span>
-          <span className="font-mono text-xs font-bold text-gray-900">
+          <span className="font-mono text-xs font-bold text-white">
             {String(currentIndex + 1).padStart(2, '0')}
           </span>
-          <span className="text-[9px] font-black tracking-[0.3em] text-gray-300">
+          <span className="text-[9px] font-black tracking-[0.3em] text-white/20">
             問
           </span>
-          <div className="flex-1 h-px bg-gray-100" />
-          <span className="text-[9px] font-bold tracking-widest text-gray-300 uppercase">
+          <div className="flex-1 h-px bg-white/8" />
+          <span className="text-[9px] font-bold tracking-widest text-white/20 uppercase">
             {axisInfo.label}
           </span>
         </div>
 
-        <p className="text-gray-900 text-lg font-bold leading-snug mb-7">
+        <p className="text-white text-lg font-bold leading-snug mb-7">
           {current.text}
         </p>
 
@@ -148,16 +148,16 @@ export default function QuizPage() {
                 disabled={!!selected}
                 className={`option-btn w-full text-left border px-4 py-3.5 text-sm transition-all ${
                   isSelected
-                    ? 'selected border-gray-900 bg-gray-900 text-white'
+                    ? 'selected border-white bg-white text-[#0a0a0a]'
                     : isOther
-                    ? 'border-gray-100 text-gray-300'
-                    : 'border-gray-200 text-gray-700 hover:border-gray-400'
+                    ? 'border-white/5 text-white/20'
+                    : 'border-white/10 text-white/65 hover:border-white/40'
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <span
                     className={`flex-shrink-0 w-5 h-5 border flex items-center justify-center text-[10px] font-black mt-0.5
-                      ${isSelected ? 'border-white text-white' : isOther ? 'border-gray-100 text-gray-300' : 'border-gray-300 text-gray-400'}
+                      ${isSelected ? 'border-[#0a0a0a] text-[#0a0a0a]' : isOther ? 'border-white/5 text-white/20' : 'border-white/20 text-white/30'}
                     `}
                   >
                     {choice.label}
@@ -171,7 +171,7 @@ export default function QuizPage() {
 
         <div className="flex gap-1 mt-5 justify-center">
           {(['A', 'B', 'C', 'D'] as const).map((k) => (
-            <kbd key={k} className="text-[9px] px-1.5 py-0.5 border border-gray-100 text-gray-300 font-mono">{k}</kbd>
+            <kbd key={k} className="text-[9px] px-1.5 py-0.5 border border-white/8 text-white/20 font-mono">{k}</kbd>
           ))}
         </div>
       </div>
@@ -183,7 +183,7 @@ export default function QuizPage() {
             key={i}
             className="flex-1 h-1"
             style={{
-              background: i < currentIndex ? '#c9a84c' : i === currentIndex ? '#0a0a0a' : '#e8e8e8',
+              background: i < currentIndex ? '#c9a84c' : i === currentIndex ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.08)',
             }}
           />
         ))}
@@ -195,7 +195,7 @@ export default function QuizPage() {
           <button
             onClick={handleBack}
             disabled={!!selected || isTransitioning}
-            className="text-[9px] font-bold text-gray-400 hover:text-gray-700 disabled:opacity-30 transition-colors tracking-widest"
+            className="text-[9px] font-bold text-white/30 hover:text-white/60 disabled:opacity-30 transition-colors tracking-widest"
           >
             ← 前の問題
           </button>
