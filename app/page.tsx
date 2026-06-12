@@ -7,22 +7,22 @@ export const metadata: Metadata = {
 };
 
 const TYPE_LIST = [
-  { id: '01', title: '孤高の天才' },
-  { id: '02', title: '影の参謀' },
-  { id: '03', title: '共感の達人' },
-  { id: '04', title: '不動の守護者' },
-  { id: '05', title: '時代を創る者' },
-  { id: '06', title: '冷静な支配者' },
-  { id: '07', title: '未来の預言者' },
-  { id: '08', title: '完璧な設計者' },
-  { id: '09', title: '無謀な開拓者' },
-  { id: '10', title: '熱狂の伝道師' },
-  { id: '11', title: '孤高の職人' },
-  { id: '12', title: '型破りの革命家' },
-  { id: '13', title: '魂の扇動者' },
-  { id: '14', title: '現場の守護神' },
-  { id: '15', title: '言葉の魔術師' },
-  { id: '16', title: '魂の癒し手' },
+  { id: '01', title: '知識ギルド' },
+  { id: '02', title: '参謀ギルド' },
+  { id: '03', title: '治癒ギルド' },
+  { id: '04', title: '守護ギルド' },
+  { id: '05', title: '革命ギルド' },
+  { id: '06', title: '統率ギルド' },
+  { id: '07', title: '預言ギルド' },
+  { id: '08', title: '設計ギルド' },
+  { id: '09', title: '開拓ギルド' },
+  { id: '10', title: '炎ギルド' },
+  { id: '11', title: '職人ギルド' },
+  { id: '12', title: '反逆ギルド' },
+  { id: '13', title: '扇動ギルド' },
+  { id: '14', title: '専門ギルド' },
+  { id: '15', title: '言霊ギルド' },
+  { id: '16', title: '賢者ギルド' },
 ];
 
 const STATS = [

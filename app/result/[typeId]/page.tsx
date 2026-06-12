@@ -5,8 +5,18 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import AdUnit from '@/components/AdUnit';
 import { BLOOM_TYPES } from '@/lib/types';
-import type { BloomTypeId, DiagnosisStats } from '@/lib/types';
+import type { BloomTypeId, DiagnosisStats, AbilityRank } from '@/lib/types';
 import { loadResult } from '@/lib/scoring';
+
+const ABILITY_KEYS = ['分析力', '行動力', '共感力', '適応力'] as const;
+
+const RANK_STYLE: Record<AbilityRank, { text: string; border: string; bg: string }> = {
+  S: { text: 'text-[#c9a84c]', border: 'border-[#c9a84c]', bg: 'bg-[#c9a84c]/5' },
+  A: { text: 'text-gray-900',  border: 'border-gray-800', bg: 'bg-gray-50' },
+  B: { text: 'text-gray-600',  border: 'border-gray-400', bg: 'bg-white' },
+  C: { text: 'text-gray-400',  border: 'border-gray-200', bg: 'bg-white' },
+  D: { text: 'text-gray-300',  border: 'border-gray-100', bg: 'bg-white' },
+};
 
 const STAT_LABELS: { key: keyof DiagnosisStats; label: string }[] = [
   { key: 'analysis',   label: '分析力' },
@@ -28,7 +38,6 @@ export default function ResultPage() {
 
   useEffect(() => {
     setMounted(true);
-    // URLパラメータを最優先（デバイス間でシェアしても一致する）
     const params = new URLSearchParams(window.location.search);
     const urlBP = params.get('bp');
     const urlS  = params.get('s');
@@ -38,7 +47,6 @@ export default function ResultPage() {
       setUserStats({ analysis, action, empathy, expression, change });
       return;
     }
-    // fallback: localStorage
     const saved = loadResult();
     if (saved && saved.typeId === typeId) {
       setUserStats(saved.stats);
@@ -95,29 +103,89 @@ export default function ResultPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pb-16 px-5">
 
-      {/* Header */}
-      <div className="w-full max-w-lg pt-12 pb-8 animate-fadeInUp">
-        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">
+      {/* Guild Header */}
+      <div className="w-full max-w-lg pt-12 pb-6 animate-fadeInUp">
+        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-6">
           ブルーム診断 — 結果
         </div>
-        <div className="text-[9px] font-mono text-gray-300 mb-3">タイプ {typeData.id}</div>
-        <h1 className="text-5xl font-black text-gray-900 leading-none mb-3">
-          {typeData.catchTitle}
+
+        {/* Guild name — main identity */}
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-[9px] font-mono text-gray-300">TYPE {typeData.id}</span>
+          <div className="flex-1 h-px bg-gray-100" />
+        </div>
+        <h1 className="text-5xl font-black text-gray-900 leading-none mb-1">
+          {typeData.guild}
         </h1>
-        <div className="w-6 h-0.5 mb-3" style={{ background: '#c9a84c' }} />
-        <p className="text-xs text-gray-400">"{typeData.catchCopy}"</p>
+        <div className="w-8 h-0.5 mt-3 mb-3" style={{ background: '#c9a84c' }} />
+
+        {/* Character role */}
+        <p className="text-sm font-bold text-gray-500 mb-3">{typeData.guildRole}</p>
+
+        {/* Guild tags */}
+        <div className="flex flex-wrap gap-1.5">
+          {typeData.guildTags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[9px] font-bold tracking-widest border border-gray-200 px-2 py-1 text-gray-400"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* Battle Power */}
+      {/* Abilities */}
       <div className="max-w-lg w-full animate-scaleIn">
-        <div className="bg-gray-900 p-7 text-white">
+        <div className="grid grid-cols-4 gap-px bg-gray-100 border border-gray-100">
+          {ABILITY_KEYS.map((key) => {
+            const rank = typeData.abilities[key];
+            const style = RANK_STYLE[rank];
+            return (
+              <div
+                key={key}
+                className={`${style.bg} flex flex-col items-center justify-center py-5 gap-1`}
+              >
+                <span className={`text-3xl font-black tabular-nums ${style.text}`}>
+                  {rank}
+                </span>
+                <span className="text-[8px] font-bold tracking-widest text-gray-400">
+                  {key}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Catchcopy + Type name (secondary) */}
+      <div
+        className="border border-gray-200 max-w-lg w-full mt-3 px-6 py-4 animate-fadeInUp flex items-center gap-4"
+        style={{ animationDelay: '0.05s', opacity: 0 }}
+      >
+        <div className="flex-1">
+          <div className="text-[8px] font-bold tracking-[0.3em] text-gray-300 mb-1">{typeData.catchTitle}</div>
+          <p className="text-xs text-gray-500 italic">"{typeData.catchCopy}"</p>
+        </div>
+        <div className="text-right flex-shrink-0">
+          <div className="text-[8px] text-gray-300 mb-0.5">BATTLE POWER</div>
+          <div className="text-2xl font-black tabular-nums text-gray-900">{displayBP.toLocaleString()}</div>
+        </div>
+      </div>
+
+      {/* Battle Power card */}
+      <div
+        className="max-w-lg w-full mt-3 animate-fadeInUp"
+        style={{ animationDelay: '0.1s', opacity: 0 }}
+      >
+        <div className="bg-gray-900 p-6 text-white">
           <div className="text-[9px] font-bold tracking-[0.3em] mb-2" style={{ color: '#c9a84c' }}>
             戦　闘　力
           </div>
           <div className="text-7xl font-black tracking-tight tabular-nums leading-none mb-4">
             {displayBP.toLocaleString()}
           </div>
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-3 mb-4">
             <div className="text-[10px] text-gray-500 flex-shrink-0">/ 10,000</div>
             <div className="flex-1 h-px bg-gray-800 overflow-hidden">
               <div
@@ -134,15 +202,15 @@ export default function ResultPage() {
         </div>
       </div>
 
-      {/* Stats */}
+      {/* 5軸スコア */}
       <div
         className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
-        style={{ animationDelay: '0.1s', opacity: 0 }}
+        style={{ animationDelay: '0.15s', opacity: 0 }}
       >
         <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-5">
           5軸スコア
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
           {STAT_LABELS.map(({ key, label }) => {
             const value = stats[key];
             return (
@@ -177,7 +245,7 @@ export default function ResultPage() {
       {/* Description */}
       <div
         className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
-        style={{ animationDelay: '0.15s', opacity: 0 }}
+        style={{ animationDelay: '0.2s', opacity: 0 }}
       >
         <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-3">
           プロフィール
@@ -188,7 +256,7 @@ export default function ResultPage() {
       {/* Jobs & Hobbies */}
       <div
         className="max-w-lg w-full mt-3 grid grid-cols-2 gap-3 animate-fadeInUp"
-        style={{ animationDelay: '0.2s', opacity: 0 }}
+        style={{ animationDelay: '0.25s', opacity: 0 }}
       >
         <div className="border border-gray-200 p-5">
           <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">向いてる仕事</div>
@@ -214,24 +282,27 @@ export default function ResultPage() {
         </div>
       </div>
 
-      {/* Compatible type */}
+      {/* Compatible guild */}
       <div
         className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
-        style={{ animationDelay: '0.25s', opacity: 0 }}
+        style={{ animationDelay: '0.3s', opacity: 0 }}
       >
         <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">
-          最高の相棒
+          最強の相棒ギルド
         </div>
         <Link
           href={`/result/${typeData.compatibleType}`}
           className="flex items-center gap-4 p-4 border border-gray-100 hover:border-gray-300 transition-colors"
         >
-          <div className="w-10 h-10 bg-gray-900 flex items-center justify-center text-white font-black font-mono text-sm flex-shrink-0">
-            {compatibleType.id}
+          <div className="flex-shrink-0 text-center">
+            <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white font-black font-mono text-xs mb-1">
+              {compatibleType.id}
+            </div>
           </div>
           <div className="flex-1 min-w-0">
-            <div className="font-bold text-gray-900 text-sm">{compatibleType.catchTitle}</div>
-            <div className="text-[10px] text-gray-400 mt-0.5">{typeData.compatibleReason}</div>
+            <div className="font-black text-gray-900 text-base">{compatibleType.guild}</div>
+            <div className="text-[10px] text-gray-500 mt-0.5">{compatibleType.catchTitle}</div>
+            <div className="text-[10px] text-gray-400 mt-1.5 leading-snug">{typeData.compatibleReason}</div>
           </div>
           <span className="text-gray-300 text-xs flex-shrink-0">→</span>
         </Link>
@@ -240,20 +311,20 @@ export default function ResultPage() {
       {/* CTAs */}
       <div
         className="max-w-lg w-full mt-5 animate-fadeInUp"
-        style={{ animationDelay: '0.3s', opacity: 0 }}
+        style={{ animationDelay: '0.35s', opacity: 0 }}
       >
         <button
           onClick={() => {
-            const text = `${typeData.catchTitle} — Battle Power ${battlePower.toLocaleString()} | ${typeData.catchCopy}`;
+            const text = `私は【${typeData.guild}】だった。\n戦闘力 ${battlePower.toLocaleString()} / 10,000\n${typeData.catchCopy}\n\nあなたのギルドは？ →`;
             if (navigator.share) {
               navigator.share({ title: text, url: window.location.href });
             } else {
-              navigator.clipboard?.writeText(window.location.href).then(() => alert('URLをコピーしました！'));
+              navigator.clipboard?.writeText(`${text}\n${window.location.href}`).then(() => alert('コピーしました！'));
             }
           }}
           className="block w-full py-4 bg-gray-900 text-white font-bold text-xs tracking-[0.3em] uppercase text-center hover:bg-black transition-colors mb-2"
         >
-          結果をシェアする →
+          ギルドをシェアする →
         </button>
         <Link
           href="/"
