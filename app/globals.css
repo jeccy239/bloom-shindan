@@ -51,16 +51,35 @@ body {
 .delay-800 { animation-delay: 0.8s; }
 
 .option-btn {
+  appearance: none;
+  -webkit-appearance: none;
   transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  /* iOS Safari: disabled状態でも文字色を保持 */
+  -webkit-text-fill-color: inherit;
 }
-.option-btn:hover:not(:disabled) {
-  background: #f5f5f5;
+
+/* ホバースタイルはマウス操作デバイスのみに限定
+   （iOS Safari でホバー状態が次ページのボタンに残留するのを防ぐ） */
+@media (hover: hover) and (pointer: fine) {
+  .option-btn:hover:not(.selected) {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
 }
+
 .option-btn.selected {
-  background: #0a0a0a;
-  border-color: #0a0a0a;
-  color: white;
+  background: white;
+  border-color: white;
+  color: #0a0a0a;
+  -webkit-text-fill-color: #0a0a0a;
+}
+.option-btn.selected * {
+  color: #0a0a0a;
+  -webkit-text-fill-color: #0a0a0a;
 }
 
 .progress-fill {

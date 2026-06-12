@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { questions } from '@/lib/questions';
 import { buildResult, saveResult, TOTAL_QUESTIONS } from '@/lib/scoring';
@@ -42,6 +43,7 @@ export default function QuizPage() {
     (label: 'A' | 'B' | 'C' | 'D') => {
       if (isTransitioning || selected) return;
       setSelected(label);
+      setIsTransitioning(true);
 
       const choice = current.choices.find((c) => c.label === label)!;
       const newAnswer: Answer = {
@@ -64,16 +66,15 @@ export default function QuizPage() {
           ].join(',');
           router.push(`/analyzing/${result.typeId}?bp=${result.battlePower}&s=${s}`);
         } else {
-          setIsTransitioning(true);
-          setTimeout(() => {
-            setAnswers(updatedAnswers);
-            setCurrentIndex(currentIndex + 1);
-            setSelected(null);
-            setIsTransitioning(false);
-            setKey((k) => k + 1);
-          }, 300);
+          // iOS Safari では selected の白背景を先に同期的にクリアし、
+          // GPUレイヤーを更新してから次の問題を表示する
+          flushSync(() => setSelected(null));
+          setAnswers(updatedAnswers);
+          setCurrentIndex(currentIndex + 1);
+          setIsTransitioning(false);
+          setKey((k) => k + 1);
         }
-      }, 400);
+      }, 300);
     },
     [answers, current, currentIndex, isTransitioning, router, selected],
   );
@@ -145,13 +146,12 @@ export default function QuizPage() {
               <button
                 key={choice.label}
                 onClick={() => handleSelect(choice.label)}
-                disabled={!!selected}
-                className={`option-btn w-full text-left border px-4 py-3.5 text-sm transition-all ${
+                className={`option-btn appearance-none w-full text-left border px-4 py-3.5 text-sm transition-all ${
                   isSelected
                     ? 'selected border-white bg-white text-[#0a0a0a]'
                     : isOther
-                    ? 'border-white/5 text-white/20'
-                    : 'border-white/10 text-white/65 hover:border-white/40'
+                    ? 'border-white/5 text-white/20 cursor-default'
+                    : 'border-white/10 text-white/65'
                 }`}
               >
                 <div className="flex items-start gap-3">
