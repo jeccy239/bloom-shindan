@@ -49,13 +49,14 @@ export function determineType(scores: AxisScore): BloomTypeId {
 }
 
 export function calcBattlePower(scores: AxisScore): number {
-  const analysis = Math.abs(scores.axis2) / 20 * 100;
-  const action   = Math.abs(scores.axis1) / 20 * 100;
-  const empathy  = (20 - scores.axis2) / 40 * 100;
-  const express  = Math.abs(scores.axis5) / 20 * 100;
-  const change   = Math.abs(scores.axis4) / 20 * 100;
-  const total = (analysis + action + empathy + express + change) / 5;
-  return Math.round(5000 + total * 50);
+  const analysis  = Math.abs(scores.axis2) / 20 * 100;
+  const action    = Math.abs(scores.axis1) / 20 * 100;
+  const empathy   = (20 - scores.axis2) / 40 * 100;
+  const express   = Math.abs(scores.axis5) / 20 * 100;
+  const change    = Math.abs(scores.axis4) / 20 * 100;
+  const stability = (20 - Math.abs(scores.axis1)) / 20 * 100;
+  const total = (analysis + action + empathy + express + change + stability) / 6;
+  return Math.round(7000 + total * 80);
 }
 
 export function calcStats(scores: AxisScore): DiagnosisStats {

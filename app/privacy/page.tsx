@@ -31,7 +31,7 @@ const SECTIONS = [
   },
   {
     title: 'お問い合わせ',
-    body: `本ポリシーに関するお問い合わせは、下記までご連絡ください。\n\n運営：株式会社LEVAN\nEmail：jeccy239@gmail.com`,
+    body: `本ポリシーに関するお問い合わせは、下記までご連絡ください。\n\n運営：株式会社LEVAN\nEmail：info@levan.sakuraweb.com`,
   },
 ];
 

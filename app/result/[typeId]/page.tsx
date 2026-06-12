@@ -5,33 +5,30 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import AdUnit from '@/components/AdUnit';
 import { BLOOM_TYPES } from '@/lib/types';
-import type { BloomTypeId, DiagnosisStats, AbilityRank } from '@/lib/types';
+import type { BloomTypeId, FactionColor, Rarity } from '@/lib/types';
 import { loadResult } from '@/lib/scoring';
 
-const ABILITY_KEYS = ['分析力', '行動力', '共感力', '適応力'] as const;
+const RPG_STAT_KEYS = ['知力', '創造力', '統率力', '共感力', '行動力', '精神力'] as const;
 
-const RANK_STYLE: Record<AbilityRank, { text: string; border: string; bg: string }> = {
-  S: { text: 'text-[#c9a84c]', border: 'border-[#c9a84c]', bg: 'bg-[#c9a84c]/5' },
-  A: { text: 'text-gray-900',  border: 'border-gray-800', bg: 'bg-gray-50' },
-  B: { text: 'text-gray-600',  border: 'border-gray-400', bg: 'bg-white' },
-  C: { text: 'text-gray-400',  border: 'border-gray-200', bg: 'bg-white' },
-  D: { text: 'text-gray-300',  border: 'border-gray-100', bg: 'bg-white' },
+const FACTION_COLOR: Record<FactionColor, { accent: string }> = {
+  blue:   { accent: '#3b82f6' },
+  red:    { accent: '#ef4444' },
+  purple: { accent: '#a855f7' },
+  gold:   { accent: '#c9a84c' },
 };
 
-const STAT_LABELS: { key: keyof DiagnosisStats; label: string }[] = [
-  { key: 'analysis',   label: '分析力' },
-  { key: 'action',     label: '実行力' },
-  { key: 'empathy',    label: '共感力' },
-  { key: 'expression', label: '発信力' },
-  { key: 'change',     label: '変化適応' },
-];
+const RARITY_STYLE: Record<Rarity, { label: string; color: string }> = {
+  SSR: { label: 'SSR', color: '#c9a84c' },
+  SR:  { label: 'SR',  color: '#9ca3af' },
+  R:   { label: 'R',   color: '#3b82f6' },
+  N:   { label: 'N',   color: '#6b7280' },
+};
 
 export default function ResultPage() {
   const { typeId } = useParams<{ typeId: string }>();
   const [mounted, setMounted] = useState(false);
   const [displayBP, setDisplayBP] = useState(0);
   const [showBars, setShowBars] = useState(false);
-  const [userStats, setUserStats] = useState<DiagnosisStats | null>(null);
   const [userBP, setUserBP] = useState<number | null>(null);
 
   const typeData = BLOOM_TYPES[typeId as BloomTypeId];
@@ -40,16 +37,12 @@ export default function ResultPage() {
     setMounted(true);
     const params = new URLSearchParams(window.location.search);
     const urlBP = params.get('bp');
-    const urlS  = params.get('s');
-    if (urlBP && urlS) {
-      const [analysis, action, empathy, expression, change] = urlS.split(',').map(Number);
+    if (urlBP) {
       setUserBP(parseInt(urlBP));
-      setUserStats({ analysis, action, empathy, expression, change });
       return;
     }
     const saved = loadResult();
     if (saved && saved.typeId === typeId) {
-      setUserStats(saved.stats);
       setUserBP(saved.battlePower);
     }
   }, [typeId]);
@@ -96,33 +89,45 @@ export default function ResultPage() {
     );
   }
 
-  const stats = userStats ?? typeData.stats;
   const battlePower = userBP ?? typeData.battlePower;
   const compatibleType = BLOOM_TYPES[typeData.compatibleType];
+  const enemyType = BLOOM_TYPES[typeData.enemyType];
+  const factionAccent = FACTION_COLOR[typeData.factionColor].accent;
+  const rarityStyle = RARITY_STYLE[typeData.rarity];
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pb-16 px-5">
 
-      {/* Guild Header */}
+      {/* Header */}
       <div className="w-full max-w-lg pt-12 pb-6 animate-fadeInUp">
         <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-6">
           ブルーム診断 — 結果
         </div>
 
-        {/* Guild name — main identity */}
         <div className="flex items-center gap-3 mb-2">
           <span className="text-[9px] font-mono text-gray-300">TYPE {typeData.id}</span>
           <div className="flex-1 h-px bg-gray-100" />
+          <span
+            className="text-[9px] font-bold tracking-widest px-2 py-0.5"
+            style={{ color: factionAccent, border: `1px solid ${factionAccent}50` }}
+          >
+            {typeData.faction}
+          </span>
         </div>
+
         <h1 className="text-5xl font-black text-gray-900 leading-none mb-1">
-          {typeData.guild}
+          {typeData.catchTitle}
         </h1>
-        <div className="w-8 h-0.5 mt-3 mb-3" style={{ background: '#c9a84c' }} />
+        <div className="w-8 h-0.5 mt-3 mb-3" style={{ background: factionAccent }} />
 
-        {/* Character role */}
-        <p className="text-sm font-bold text-gray-500 mb-3">{typeData.guildRole}</p>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xs text-gray-400">{typeData.characterTitle}</span>
+          <span className="text-gray-200">·</span>
+          <span className="text-xs font-bold" style={{ color: factionAccent }}>
+            {typeData.jobClass}
+          </span>
+        </div>
 
-        {/* Guild tags */}
         <div className="flex flex-wrap gap-1.5">
           {typeData.guildTags.map((tag) => (
             <span
@@ -135,64 +140,37 @@ export default function ResultPage() {
         </div>
       </div>
 
-      {/* Abilities */}
-      <div className="max-w-lg w-full animate-scaleIn">
-        <div className="grid grid-cols-4 gap-px bg-gray-100 border border-gray-100">
-          {ABILITY_KEYS.map((key) => {
-            const rank = typeData.abilities[key];
-            const style = RANK_STYLE[rank];
-            return (
-              <div
-                key={key}
-                className={`${style.bg} flex flex-col items-center justify-center py-5 gap-1`}
-              >
-                <span className={`text-3xl font-black tabular-nums ${style.text}`}>
-                  {rank}
-                </span>
-                <span className="text-[8px] font-bold tracking-widest text-gray-400">
-                  {key}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Catchcopy + Type name (secondary) */}
-      <div
-        className="border border-gray-200 max-w-lg w-full mt-3 px-6 py-4 animate-fadeInUp flex items-center gap-4"
-        style={{ animationDelay: '0.05s', opacity: 0 }}
-      >
-        <div className="flex-1">
-          <div className="text-[8px] font-bold tracking-[0.3em] text-gray-300 mb-1">{typeData.catchTitle}</div>
-          <p className="text-xs text-gray-500 italic">"{typeData.catchCopy}"</p>
-        </div>
-        <div className="text-right flex-shrink-0">
-          <div className="text-[8px] text-gray-300 mb-0.5">BATTLE POWER</div>
-          <div className="text-2xl font-black tabular-nums text-gray-900">{displayBP.toLocaleString()}</div>
-        </div>
-      </div>
-
       {/* Battle Power card */}
       <div
-        className="max-w-lg w-full mt-3 animate-fadeInUp"
-        style={{ animationDelay: '0.1s', opacity: 0 }}
+        className="max-w-lg w-full animate-fadeInUp"
+        style={{ animationDelay: '0.05s', opacity: 0 }}
       >
         <div className="bg-gray-900 p-6 text-white">
-          <div className="text-[9px] font-bold tracking-[0.3em] mb-2" style={{ color: '#c9a84c' }}>
-            戦　闘　力
+          <div className="flex items-start justify-between mb-2">
+            <div className="text-[9px] font-bold tracking-[0.3em]" style={{ color: factionAccent }}>
+              戦　闘　力
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="text-[10px] font-black tracking-widest px-2 py-0.5"
+                style={{ color: rarityStyle.color, border: `1px solid ${rarityStyle.color}60` }}
+              >
+                {rarityStyle.label}
+              </span>
+              <span className="text-[10px] text-gray-400">上位{typeData.populationPercent}%</span>
+            </div>
           </div>
           <div className="text-7xl font-black tracking-tight tabular-nums leading-none mb-4">
             {displayBP.toLocaleString()}
           </div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="text-[10px] text-gray-500 flex-shrink-0">/ 10,000</div>
+            <div className="text-[10px] text-gray-500 flex-shrink-0">/ 15,000</div>
             <div className="flex-1 h-px bg-gray-800 overflow-hidden">
               <div
                 style={{
                   height: '100%',
-                  width: `${(displayBP / 10000) * 100}%`,
-                  background: '#c9a84c',
+                  width: `${Math.min((displayBP / 15000) * 100, 100)}%`,
+                  background: factionAccent,
                   transition: 'width 0.05s ease-out',
                 }}
               />
@@ -202,38 +180,69 @@ export default function ResultPage() {
         </div>
       </div>
 
-      {/* 5軸スコア */}
+      {/* RPG Stats */}
       <div
         className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
-        style={{ animationDelay: '0.15s', opacity: 0 }}
+        style={{ animationDelay: '0.1s', opacity: 0 }}
       >
         <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-5">
-          5軸スコア
+          ステータス
         </div>
         <div className="flex flex-col gap-4">
-          {STAT_LABELS.map(({ key, label }) => {
-            const value = stats[key];
+          {RPG_STAT_KEYS.map((key) => {
+            const value = typeData.rpgStats[key];
             return (
               <div key={key}>
                 <div className="flex justify-between items-center mb-1.5">
-                  <span className="text-xs font-bold text-gray-700">{label}</span>
-                  <span className="text-[10px] font-mono font-bold text-gray-400 tabular-nums">
-                    {String(value).padStart(3, ' ')}%
+                  <span className="text-xs font-bold text-gray-700">{key}</span>
+                  <span className="text-sm font-black tabular-nums" style={{ color: factionAccent }}>
+                    {value}
                   </span>
                 </div>
-                <div className="h-0.5 bg-gray-100">
+                <div className="h-1 bg-gray-100 rounded-full overflow-hidden">
                   <div
                     style={{
                       width: showBars ? `${value}%` : '0%',
                       height: '100%',
-                      background: '#c9a84c',
+                      background: factionAccent,
                       transition: 'width 1s cubic-bezier(0.34,1.56,0.64,1)',
+                      borderRadius: '9999px',
                     }}
                   />
                 </div>
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* Special Skills */}
+      <div
+        className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
+        style={{ animationDelay: '0.15s', opacity: 0 }}
+      >
+        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">
+          特殊スキル
+        </div>
+        <div className="flex flex-col gap-3">
+          {typeData.specialSkills.map((skill) => (
+            <div key={skill.name} className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-base">{skill.emoji}</span>
+                <span className="text-sm font-bold text-gray-800">{skill.name}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: i < skill.level ? factionAccent : '#e5e7eb' }}
+                  />
+                ))}
+                <span className="text-[10px] font-mono text-gray-400 ml-1">Lv.{skill.level}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -263,7 +272,7 @@ export default function ResultPage() {
           <ul className="flex flex-col gap-3">
             {typeData.jobs.map((job) => (
               <li key={job} className="text-xs text-gray-700 flex items-center gap-2">
-                <span className="w-3 h-px flex-shrink-0" style={{ background: '#c9a84c' }} />
+                <span className="w-3 h-px flex-shrink-0" style={{ background: factionAccent }} />
                 {job}
               </li>
             ))}
@@ -274,7 +283,7 @@ export default function ResultPage() {
           <ul className="flex flex-col gap-3">
             {typeData.hobbies.map((hobby) => (
               <li key={hobby} className="text-xs text-gray-700 flex items-center gap-2">
-                <span className="w-3 h-px flex-shrink-0" style={{ background: '#c9a84c' }} />
+                <span className="w-3 h-px flex-shrink-0" style={{ background: factionAccent }} />
                 {hobby}
               </li>
             ))}
@@ -282,30 +291,43 @@ export default function ResultPage() {
         </div>
       </div>
 
-      {/* Compatible guild */}
+      {/* Compatible & Enemy */}
       <div
-        className="border border-gray-200 max-w-lg w-full mt-3 p-6 animate-fadeInUp"
+        className="max-w-lg w-full mt-3 grid grid-cols-2 gap-3 animate-fadeInUp"
         style={{ animationDelay: '0.3s', opacity: 0 }}
       >
-        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">
-          最強の相棒ギルド
-        </div>
-        <Link
-          href={`/result/${typeData.compatibleType}`}
-          className="flex items-center gap-4 p-4 border border-gray-100 hover:border-gray-300 transition-colors"
-        >
-          <div className="flex-shrink-0 text-center">
-            <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white font-black font-mono text-xs mb-1">
+        <div className="border border-gray-200 p-5">
+          <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-3">最強の相棒</div>
+          <Link href={`/result/${typeData.compatibleType}`} className="flex flex-col gap-2 hover:opacity-80 transition-opacity">
+            <div
+              className="w-10 h-10 flex items-center justify-center text-white font-black font-mono text-xs"
+              style={{ background: FACTION_COLOR[compatibleType.factionColor].accent }}
+            >
               {compatibleType.id}
             </div>
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="font-black text-gray-900 text-base">{compatibleType.guild}</div>
-            <div className="text-[10px] text-gray-500 mt-0.5">{compatibleType.catchTitle}</div>
-            <div className="text-[10px] text-gray-400 mt-1.5 leading-snug">{typeData.compatibleReason}</div>
-          </div>
-          <span className="text-gray-300 text-xs flex-shrink-0">→</span>
-        </Link>
+            <div className="font-black text-gray-900 text-sm leading-tight">{compatibleType.catchTitle}</div>
+            <div className="text-[9px] font-bold" style={{ color: FACTION_COLOR[compatibleType.factionColor].accent }}>
+              {compatibleType.jobClass}
+            </div>
+            <p className="text-[10px] text-gray-400 leading-snug mt-1">{typeData.compatibleReason}</p>
+          </Link>
+        </div>
+
+        <div className="border border-gray-200 p-5">
+          <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-3">天　敵</div>
+          <Link href={`/result/${typeData.enemyType}`} className="flex flex-col gap-2 hover:opacity-80 transition-opacity">
+            <div className="w-10 h-10 flex items-center justify-center bg-gray-900 text-white font-black font-mono text-xs">
+              {enemyType.id}
+            </div>
+            <div className="font-black text-gray-900 text-sm leading-tight">{enemyType.catchTitle}</div>
+            <div className="text-[9px] font-bold" style={{ color: FACTION_COLOR[enemyType.factionColor].accent }}>
+              {enemyType.jobClass}
+            </div>
+            <p className="text-[10px] text-gray-400 leading-snug mt-1">
+              最も意見がぶつかるが、最も成長させてくれる相手。
+            </p>
+          </Link>
+        </div>
       </div>
 
       {/* CTAs */}
@@ -315,7 +337,7 @@ export default function ResultPage() {
       >
         <button
           onClick={() => {
-            const text = `私は【${typeData.guild}】だった。\n戦闘力 ${battlePower.toLocaleString()} / 10,000\n${typeData.catchCopy}\n\nあなたのギルドは？ →`;
+            const text = `私は【${typeData.catchTitle}】だった。\nクラス：${typeData.jobClass}\n戦闘力 ${battlePower.toLocaleString()} / 15,000\n${typeData.rarity}級 / 上位${typeData.populationPercent}%\n\nあなたのクラスは？ →`;
             if (navigator.share) {
               navigator.share({ title: text, url: window.location.href });
             } else {
@@ -324,7 +346,7 @@ export default function ResultPage() {
           }}
           className="block w-full py-4 bg-gray-900 text-white font-bold text-xs tracking-[0.3em] uppercase text-center hover:bg-black transition-colors mb-2"
         >
-          ギルドをシェアする →
+          結果をシェアする →
         </button>
         <Link
           href="/"
