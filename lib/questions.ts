@@ -126,7 +126,7 @@ export const questions: Question[] = [
     id: 12, axis: 2,
     text: '映画を見終わった直後、最初に口から出るのは？',
     choices: [
-      { label: 'A', text: '「あの伏線の張り方と構成の精密さが面白くて」', scores: [-1, 2, 0, 0, -1] },
+      { label: 'A', text: '「あの話の組み立て方や伏線の仕掛けが面白くて」', scores: [-1, 2, 0, 0, -1] },
       { label: 'B', text: '「あのシーンの設定に矛盾があって気になった」', scores: [0, 1, 0, 0, -1] },
       { label: 'C', text: '「あのキャラがなぜあの選択をしたかが気になって」', scores: [0, -1, 0, 0, 0] },
       { label: 'D', text: '「あそこで号泣した。まだ余韻が残ってる」', scores: [-1, -2, 0, 0, 0] },
@@ -176,7 +176,7 @@ export const questions: Question[] = [
     id: 17, axis: 2,
     text: '議論で相手の意見を動かしたい時、よく使うアプローチは？',
     choices: [
-      { label: 'A', text: '客観的なデータとエビデンスで論理的に示す', scores: [0, 2, 0, 0, 0] },
+      { label: 'A', text: '客観的なデータと事実を並べて論理的に示す', scores: [0, 2, 0, 0, 0] },
       { label: 'B', text: '論理的な矛盾を指摘して反論する', scores: [0, 1, 0, 0, 0] },
       { label: 'C', text: '相手の立場を先に認めてから共感して話す', scores: [0, -1, 0, 0, 0] },
       { label: 'D', text: '感情やビジョンに訴えて「一緒に」という雰囲気を作る', scores: [-1, -2, 0, 0, 1] },
@@ -279,7 +279,7 @@ export const questions: Question[] = [
     text: 'プロジェクト振り返りをする時、最初にすることは？',
     choices: [
       { label: 'A', text: 'チーム全員で話し合ってお互いの気づきを共有する', scores: [0, 0, 2, 0, 0] },
-      { label: 'B', text: '自分の役割について上司や同僚とディスカッションする', scores: [0, 0, 1, 0, 0] },
+      { label: 'B', text: '自分の役割について上司や同僚と話し合う', scores: [0, 0, 1, 0, 0] },
       { label: 'C', text: 'まず一人で振り返ってまとめてから共有する', scores: [0, 1, -1, 0, -1] },
       { label: 'D', text: '一人で振り返り、自分の中で完結させる', scores: [0, 1, -2, 0, -2] },
     ],
@@ -288,7 +288,7 @@ export const questions: Question[] = [
     id: 28, axis: 3,
     text: 'ミーティングでの自分のスタイルは？',
     choices: [
-      { label: 'A', text: '活発に意見を出してディスカッションをリードする', scores: [1, 1, 2, 0, 1] },
+      { label: 'A', text: '活発に意見を出して議論をリードする', scores: [1, 1, 2, 0, 1] },
       { label: 'B', text: '場の流れを作りながらみんなの意見を引き出す', scores: [0, -1, 1, 0, 0] },
       { label: 'C', text: '必要な場面だけ発言する', scores: [-1, 0, -1, 0, -1] },
       { label: 'D', text: 'できれば参加を最小限に。個人作業の方が得意', scores: [-1, 1, -2, 0, -2] },
@@ -298,7 +298,7 @@ export const questions: Question[] = [
     id: 29, axis: 3,
     text: '新しいプロジェクトの理想の進め方は？',
     choices: [
-      { label: 'A', text: 'チームで頻繁に顔を合わせながらアジャイルに進める', scores: [1, 0, 2, 0, 0] },
+      { label: 'A', text: 'チームでこまめに顔を合わせて確認しながら進める', scores: [1, 0, 2, 0, 0] },
       { label: 'B', text: '役割分担を決めて互いに連携しながら進める', scores: [0, 0, 1, 0, 0] },
       { label: 'C', text: '方向性だけ共有して、各自が自律的に進める', scores: [0, 0, -1, 0, 0] },
       { label: 'D', text: '最初と最後だけ集まり、途中は完全に一人でやる', scores: [-1, 1, -2, 1, -1] },
@@ -410,7 +410,7 @@ export const questions: Question[] = [
     id: 40, axis: 4,
     text: '「成長する」について最もしっくりくるイメージは？',
     choices: [
-      { label: 'A', text: '毎日違う自分になっていくダイナミックな変容', scores: [0, 0, 0, 2, 1] },
+      { label: 'A', text: '毎日違う自分になっていくダイナミックな変化', scores: [0, 0, 0, 2, 1] },
       { label: 'B', text: '挑戦を繰り返しながら少しずつ変化していく', scores: [0, 1, 0, 1, 0] },
       { label: 'C', text: 'ゆっくりでも確実に実力をつけていく', scores: [-1, 1, 0, -1, -1] },
       { label: 'D', text: '今の自分をより深く磨いて完成度を高めていく', scores: [-1, 0, -1, -2, -1] },

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'ブルーム診断 | あなたの本質を解析する',
+  title: 'ブルーム診断 | あなたの本質を分析する',
   description: '50の問いに答えるだけで、あなたのパーソナリティタイプと戦闘力スコアが算出される。16タイプのブルーム診断。',
 };
 
@@ -25,6 +25,12 @@ const TYPE_LIST = [
   { id: '16', title: '魂の癒し手' },
 ];
 
+const STATS = [
+  { v: '50', u: '問', l: '設問数' },
+  { v: '16', u: '種', l: 'タイプ' },
+  { v: '15〜20', u: '分', l: '所要時間' },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col px-6 py-12">
@@ -32,33 +38,33 @@ export default function Home() {
 
         <div>
           {/* Brand */}
-          <div className="text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-10">
-            ブルーム診断システム
+          <div className="animate-fadeInUp delay-100 text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-10">
+            ブルーム診断
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl font-black text-gray-900 leading-[1.05] mb-5">
-            あなたの<br />本質を<br />解析する。
+          <h1 className="animate-fadeInUp delay-200 text-5xl font-black text-gray-900 leading-[1.05] mb-5">
+            あなたの<br />本質を<br />分析する。
           </h1>
 
           {/* Gold divider */}
-          <div className="w-8 h-0.5 mb-5" style={{ background: '#c9a84c' }} />
+          <div
+            className="animate-expandX delay-300 w-8 h-0.5 mb-5"
+            style={{ background: '#c9a84c' }}
+          />
 
-          <p className="text-xs text-gray-500 leading-loose mb-10">
+          <p className="animate-fadeInUp delay-400 text-xs text-gray-500 leading-loose mb-10">
             50の問いに答えるだけで、<br />
             あなたのパーソナリティタイプと<br />
             戦闘力スコアが算出される。
           </p>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 border border-gray-200 divide-x divide-gray-200 mb-10">
-            {[
-              { v: '50', u: '問', l: '設問数' },
-              { v: '16', u: '種', l: 'タイプ' },
-              { v: '5',  u: '分', l: '所要時間' },
-            ].map((s) => (
+          <div className="animate-fadeInUp delay-500 grid grid-cols-3 border border-gray-200 divide-x divide-gray-200 mb-10">
+            {STATS.map((s) => (
               <div key={s.l} className="py-4 text-center">
-                <div className="text-xl font-black text-gray-900 leading-none">
+                <div className="font-black text-gray-900 leading-none"
+                  style={{ fontSize: s.v.length > 3 ? '0.85rem' : '1.25rem' }}>
                   {s.v}<span className="text-xs font-bold">{s.u}</span>
                 </div>
                 <div className="text-[8px] font-bold tracking-[0.3em] text-gray-400 mt-1.5">{s.l}</div>
@@ -67,16 +73,18 @@ export default function Home() {
           </div>
 
           {/* CTA */}
-          <Link
-            href="/quiz"
-            className="block w-full py-4 bg-gray-900 text-white font-bold text-xs tracking-[0.3em] uppercase text-center hover:bg-black transition-colors"
-          >
-            診断スタート →
-          </Link>
+          <div className="animate-fadeInUp delay-600">
+            <Link
+              href="/quiz"
+              className="block w-full py-4 bg-gray-900 text-white font-bold text-xs tracking-[0.3em] uppercase text-center hover:bg-black transition-colors"
+            >
+              診断スタート →
+            </Link>
+          </div>
         </div>
 
         {/* Type index */}
-        <div className="mt-12 border-t border-gray-100 pt-6">
+        <div className="animate-fadeInUp delay-700 mt-12 border-t border-gray-100 pt-6">
           <div className="text-[8px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-4">
             16のパーソナリティ
           </div>
@@ -93,7 +101,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <div className="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
+      <div className="animate-fadeInUp delay-800 mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
         <div className="text-[8px] text-gray-300">© 2025 株式会社LEVAN</div>
         <Link href="/privacy" className="text-[8px] text-gray-300 hover:text-gray-500 transition-colors tracking-widest">
           プライバシーポリシー
