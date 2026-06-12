@@ -333,7 +333,7 @@ export default function ResultPage() {
       </div>
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
-      {/* INFO SECTIONS — light bg          */}
+      {/* INFO SECTIONS                     */}
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <div className="w-full max-w-lg px-5 mt-5">
 
@@ -341,29 +341,29 @@ export default function ResultPage() {
         <AdUnit adSlot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_RESULT ?? ''} />
 
         {/* Description */}
-        <div className="bg-white border border-gray-100 mt-3 p-6 animate-fadeInUp" style={{ animationDelay: '0.1s', opacity: 0 }}>
-          <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-3">プロフィール</div>
-          <p className="text-gray-700 text-sm leading-relaxed">{typeData.description}</p>
+        <div className="border border-white/8 mt-3 p-6 animate-fadeInUp" style={{ animationDelay: '0.1s', opacity: 0 }}>
+          <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-3">プロフィール</div>
+          <p className="text-white/60 text-sm leading-relaxed">{typeData.description}</p>
         </div>
 
         {/* Jobs & Hobbies */}
         <div className="mt-3 grid grid-cols-2 gap-3 animate-fadeInUp" style={{ animationDelay: '0.15s', opacity: 0 }}>
-          <div className="bg-white border border-gray-100 p-5">
-            <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">向いてる仕事</div>
+          <div className="border border-white/8 p-5">
+            <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-4">向いてる仕事</div>
             <ul className="flex flex-col gap-3">
               {typeData.jobs.map((job) => (
-                <li key={job} className="text-xs text-gray-700 flex items-center gap-2">
+                <li key={job} className="text-xs text-white/55 flex items-center gap-2">
                   <span className="w-3 h-px flex-shrink-0" style={{ background: accent }} />
                   {job}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="bg-white border border-gray-100 p-5">
-            <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-4">趣味・習慣</div>
+          <div className="border border-white/8 p-5">
+            <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-4">趣味・習慣</div>
             <ul className="flex flex-col gap-3">
               {typeData.hobbies.map((hobby) => (
-                <li key={hobby} className="text-xs text-gray-700 flex items-center gap-2">
+                <li key={hobby} className="text-xs text-white/55 flex items-center gap-2">
                   <span className="w-3 h-px flex-shrink-0" style={{ background: accent }} />
                   {hobby}
                 </li>
@@ -374,8 +374,8 @@ export default function ResultPage() {
 
         {/* Compatible & Enemy */}
         <div className="mt-3 grid grid-cols-2 gap-3 animate-fadeInUp" style={{ animationDelay: '0.2s', opacity: 0 }}>
-          <div className="bg-white border border-gray-100 p-5">
-            <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-3">最強の相棒</div>
+          <div className="border border-white/8 p-5">
+            <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-3">最強の相棒</div>
             <Link href={`/result/${typeData.compatibleType}`} className="flex flex-col gap-2 hover:opacity-80 transition-opacity">
               <div
                 className="w-10 h-10 flex items-center justify-center text-white font-black font-mono text-xs"
@@ -383,25 +383,25 @@ export default function ResultPage() {
               >
                 {compatibleType.id}
               </div>
-              <div className="font-black text-gray-900 text-sm leading-tight">{compatibleType.catchTitle}</div>
+              <div className="font-black text-white text-sm leading-tight">{compatibleType.catchTitle}</div>
               <div className="text-[9px] font-bold" style={{ color: FACTION_COLOR[compatibleType.factionColor].accent }}>
                 {compatibleType.jobClass}
               </div>
-              <p className="text-[10px] text-gray-400 leading-snug mt-1">{typeData.compatibleReason}</p>
+              <p className="text-[10px] text-white/35 leading-snug mt-1">{typeData.compatibleReason}</p>
             </Link>
           </div>
 
-          <div className="bg-white border border-gray-100 p-5">
-            <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-3">天　敵</div>
+          <div className="border border-white/8 p-5">
+            <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-3">天　敵</div>
             <Link href={`/result/${typeData.enemyType}`} className="flex flex-col gap-2 hover:opacity-80 transition-opacity">
-              <div className="w-10 h-10 flex items-center justify-center bg-gray-900 text-white font-black font-mono text-xs">
+              <div className="w-10 h-10 flex items-center justify-center text-white font-black font-mono text-xs" style={{ background: 'rgba(255,255,255,0.08)' }}>
                 {enemyType.id}
               </div>
-              <div className="font-black text-gray-900 text-sm leading-tight">{enemyType.catchTitle}</div>
+              <div className="font-black text-white text-sm leading-tight">{enemyType.catchTitle}</div>
               <div className="text-[9px] font-bold" style={{ color: FACTION_COLOR[enemyType.factionColor].accent }}>
                 {enemyType.jobClass}
               </div>
-              <p className="text-[10px] text-gray-400 leading-snug mt-1">
+              <p className="text-[10px] text-white/35 leading-snug mt-1">
                 最も意見がぶつかるが、最も成長させてくれる相手。
               </p>
             </Link>
