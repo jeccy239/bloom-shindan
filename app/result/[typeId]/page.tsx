@@ -153,6 +153,50 @@ function RadarChart({
   );
 }
 
+function DeepAnalysisCTA({ typeId, accent }: { typeId: string; accent: string }) {
+  const [loading, setLoading] = useState(false);
+
+  const handlePurchase = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ typeId }),
+      });
+      const { url } = await res.json();
+      window.location.href = url;
+    } catch {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="mt-3 animate-fadeInUp" style={{ animationDelay: '0.12s' }}>
+      <button
+        onClick={handlePurchase}
+        disabled={loading}
+        className="flex items-center justify-between w-full p-5 border transition-all group text-left disabled:opacity-60"
+        style={{ borderColor: `${accent}50`, background: `${accent}08` }}
+      >
+        <div>
+          <div className="text-[9px] font-bold tracking-[0.3em] mb-1.5" style={{ color: accent }}>
+            AI 深層分析レポート
+          </div>
+          <p className="text-white/70 text-sm font-bold">あなただけの詳細分析を見る</p>
+          <p className="text-white/30 text-xs mt-1">強み・挑戦・人間関係・明日からの一歩</p>
+        </div>
+        <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-4">
+          <span className="text-lg font-black" style={{ color: accent }}>¥480</span>
+          <span className="text-[8px] text-white/30 group-hover:text-white/50 transition-colors">
+            {loading ? '処理中...' : '→'}
+          </span>
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export default function ResultPage() {
   const { typeId } = useParams<{ typeId: string }>();
   const [mounted, setMounted] = useState(false);
@@ -345,6 +389,9 @@ export default function ResultPage() {
           <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-3">プロフィール</div>
           <p className="text-white/60 text-sm leading-relaxed">{typeData.description}</p>
         </div>
+
+        {/* Deep Analysis CTA */}
+        <DeepAnalysisCTA typeId={typeData.id} accent={accent} />
 
         {/* Jobs & Hobbies */}
         <div className="mt-3 grid grid-cols-2 gap-3 animate-fadeInUp" style={{ animationDelay: '0.15s', opacity: 0 }}>
