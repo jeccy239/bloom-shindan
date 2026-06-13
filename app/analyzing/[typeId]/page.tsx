@@ -41,22 +41,22 @@ export default function AnalyzingPage() {
   }, [router, typeId]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center px-6">
       <div className="max-w-xs w-full">
 
-        <div className="text-[9px] font-bold tracking-[0.3em] text-gray-300 mb-10">
+        <div className="text-[9px] font-bold tracking-[0.3em] text-white/30 mb-10">
           ブルーム診断
         </div>
 
-        <div className="text-2xl font-black text-gray-900 mb-1 tracking-tight">
+        <div className="text-2xl font-black text-white mb-1 tracking-tight">
           解　析　中
         </div>
-        <div className="text-[10px] font-mono text-gray-400 mb-10 h-4 animate-fadeInUp" key={msgIndex}>
+        <div className="text-[10px] font-mono text-white/40 mb-10 h-4 animate-fadeInUp" key={msgIndex}>
           {MESSAGES[msgIndex]}
         </div>
 
         {/* Progress bar */}
-        <div className="h-px bg-gray-200 relative overflow-hidden mb-3">
+        <div className="h-px bg-white/10 relative overflow-hidden mb-3">
           <div
             className="h-full absolute top-0 left-0"
             style={{
@@ -68,7 +68,7 @@ export default function AnalyzingPage() {
         </div>
 
         <div className="flex justify-between items-center">
-          <div className="text-[10px] font-mono text-gray-400 tabular-nums">
+          <div className="text-[10px] font-mono text-white/40 tabular-nums">
             {Math.round(Math.min(progress, 100)).toString().padStart(3, '0')}%
           </div>
           <div className="flex gap-1">

@@ -184,7 +184,7 @@ function DeepAnalysisCTA({ typeId, accent }: { typeId: string; accent: string })
             AI 深層分析レポート
           </div>
           <p className="text-white/70 text-sm font-bold">あなただけの詳細分析を見る</p>
-          <p className="text-white/30 text-xs mt-1">強み・挑戦・人間関係・明日からの一歩</p>
+          <p className="text-white/50 text-xs mt-1">強み・挑戦・人間関係・明日からの一歩</p>
         </div>
         <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-4">
           <span className="text-lg font-black" style={{ color: accent }}>¥480</span>
@@ -281,13 +281,13 @@ export default function ResultPage() {
           <h1 className="text-[2.75rem] font-black leading-tight mb-1 tracking-tight">
             {typeData.catchTitle}
           </h1>
-          <p className="text-xs text-white/30 italic mb-3">"{typeData.catchCopy}"</p>
+          <p className="text-xs text-white/55 italic mb-3">"{typeData.catchCopy}"</p>
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm font-black tracking-wider" style={{ color: accent }}>
               {typeData.jobClass}
             </span>
             <span className="text-white/15">·</span>
-            <span className="text-xs text-white/35">{typeData.characterTitle}</span>
+            <span className="text-xs text-white/55">{typeData.characterTitle}</span>
           </div>
           <span
             className="inline-block text-[8px] font-bold tracking-[0.3em] px-2 py-1"
@@ -317,7 +317,7 @@ export default function ResultPage() {
             <span className="text-5xl font-black tabular-nums leading-none">
               {displayBP.toLocaleString()}
             </span>
-            <span className="text-xs text-white/25 mb-1">/ 15,000</span>
+            <span className="text-xs text-white/45 mb-1">/ 15,000</span>
           </div>
           <div className="h-0.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
             <div
@@ -350,7 +350,7 @@ export default function ResultPage() {
                       style={{ background: i < skill.level ? accent : 'rgba(255,255,255,0.08)' }}
                     />
                   ))}
-                  <span className="text-[9px] font-mono text-white/25 ml-1.5">Lv.{skill.level}</span>
+                  <span className="text-[9px] font-mono text-white/45 ml-1.5">Lv.{skill.level}</span>
                 </div>
               </div>
             ))}
@@ -358,8 +358,8 @@ export default function ResultPage() {
         </div>
       </div>
 
-      {/* Share button */}
-      <div className="w-full max-w-lg px-5 mt-3">
+      {/* Share buttons */}
+      <div className="w-full max-w-lg px-5 mt-3 flex gap-2">
         <button
           onClick={() => {
             const text = `私は【${typeData.catchTitle}】だった。\nクラス：${typeData.jobClass}\n戦闘力 ${battlePower.toLocaleString()} / 15,000\n${typeData.rarity}級 / 上位${typeData.populationPercent}%\n\nあなたのクラスは？ →`;
@@ -369,10 +369,26 @@ export default function ResultPage() {
               navigator.clipboard?.writeText(`${text}\n${window.location.href}`).then(() => alert('コピーしました！'));
             }
           }}
-          className="block w-full py-4 font-bold text-xs tracking-[0.3em] uppercase text-center transition-colors text-white"
+          className="flex-1 py-4 font-bold text-xs tracking-[0.3em] uppercase text-center transition-colors text-white"
           style={{ background: accent }}
         >
           結果をシェアする →
+        </button>
+        <button
+          onClick={() => {
+            const text = encodeURIComponent(
+              `私は【${typeData.catchTitle}】だった。\nクラス：${typeData.jobClass}\n戦闘力 ${battlePower.toLocaleString()} / 15,000\n${typeData.rarity}級 / 上位${typeData.populationPercent}%\n\n#ブルーム診断 であなたのクラスは？`
+            );
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+          }}
+          className="flex items-center justify-center gap-2 px-5 py-4 font-bold text-xs tracking-[0.2em] text-center transition-opacity hover:opacity-80 text-white"
+          style={{ background: '#000000', border: '1px solid rgba(255,255,255,0.15)' }}
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="white">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.754l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          Xでシェア
         </button>
       </div>
 
@@ -387,7 +403,7 @@ export default function ResultPage() {
         {/* Description */}
         <div className="border border-white/8 mt-3 p-6 animate-fadeInUp" style={{ animationDelay: '0.1s', opacity: 0 }}>
           <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-3">プロフィール</div>
-          <p className="text-white/60 text-sm leading-relaxed">{typeData.description}</p>
+          <p className="text-white/80 text-sm leading-relaxed">{typeData.description}</p>
         </div>
 
         {/* Deep Analysis CTA */}
@@ -399,7 +415,7 @@ export default function ResultPage() {
             <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-4">向いてる仕事</div>
             <ul className="flex flex-col gap-3">
               {typeData.jobs.map((job) => (
-                <li key={job} className="text-xs text-white/55 flex items-center gap-2">
+                <li key={job} className="text-xs text-white/75 flex items-center gap-2">
                   <span className="w-3 h-px flex-shrink-0" style={{ background: accent }} />
                   {job}
                 </li>
@@ -410,7 +426,7 @@ export default function ResultPage() {
             <div className="text-[9px] font-bold tracking-[0.3em] text-white/20 mb-4">趣味・習慣</div>
             <ul className="flex flex-col gap-3">
               {typeData.hobbies.map((hobby) => (
-                <li key={hobby} className="text-xs text-white/55 flex items-center gap-2">
+                <li key={hobby} className="text-xs text-white/75 flex items-center gap-2">
                   <span className="w-3 h-px flex-shrink-0" style={{ background: accent }} />
                   {hobby}
                 </li>
@@ -434,7 +450,7 @@ export default function ResultPage() {
               <div className="text-[9px] font-bold" style={{ color: FACTION_COLOR[compatibleType.factionColor].accent }}>
                 {compatibleType.jobClass}
               </div>
-              <p className="text-[10px] text-white/35 leading-snug mt-1">{typeData.compatibleReason}</p>
+              <p className="text-[10px] text-white/60 leading-snug mt-1">{typeData.compatibleReason}</p>
             </Link>
           </div>
 
@@ -448,7 +464,7 @@ export default function ResultPage() {
               <div className="text-[9px] font-bold" style={{ color: FACTION_COLOR[enemyType.factionColor].accent }}>
                 {enemyType.jobClass}
               </div>
-              <p className="text-[10px] text-white/35 leading-snug mt-1">
+              <p className="text-[10px] text-white/60 leading-snug mt-1">
                 最も意見がぶつかるが、最も成長させてくれる相手。
               </p>
             </Link>
