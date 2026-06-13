@@ -260,10 +260,30 @@ export default function ResultPage() {
         backgroundColor: '#0a0a0a',
         logging: false,
       });
-      const link = document.createElement('a');
-      link.download = `bloom-result-${typeData.catchTitle}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+
+      const fileName = `bloom-result-${typeData.catchTitle}.png`;
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+      if (isIOS) {
+        // iOS: <a download> 非対応のため Web Share API でファイルを渡す
+        // → 共有シートで「画像を保存」すると写真ライブラリに保存される
+        const blob = await new Promise<Blob>((resolve, reject) =>
+          canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png')
+        );
+        const file = new File([blob], fileName, { type: 'image/png' });
+        if (navigator.canShare?.({ files: [file] })) {
+          await navigator.share({ files: [file], title: 'ブルーム診断結果' });
+        } else {
+          // iOS 14以下など share files 非対応: 新しいタブで開く（長押し→保存）
+          window.open(canvas.toDataURL('image/png'), '_blank');
+        }
+      } else {
+        // Desktop / Android: 直接ダウンロード
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }
     } finally {
       setSaving(false);
     }
