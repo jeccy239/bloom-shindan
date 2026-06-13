@@ -1,8 +1,7 @@
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function GET(request: Request) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const { searchParams } = new URL(request.url);
   const sessionId = searchParams.get('session_id');
 

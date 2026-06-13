@@ -2,9 +2,8 @@ import Stripe from 'stripe';
 import { BLOOM_TYPES } from '@/lib/types';
 import type { BloomTypeId } from '@/lib/types';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(request: Request) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const { typeId } = await request.json();
 
   if (!process.env.STRIPE_SECRET_KEY) {
