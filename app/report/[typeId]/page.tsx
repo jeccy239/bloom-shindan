@@ -66,10 +66,13 @@ function parseReport(text: string): { title: string; body: string }[] {
   });
 }
 
+function sessionKey(typeId: string) { return `bloom_session_${typeId}`; }
+function reportKey(typeId: string) { return `bloom_report_${typeId}`; }
+
 export default function ReportPage() {
   const { typeId } = useParams<{ typeId: string }>();
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
+  const urlSessionId = searchParams.get('session_id');
 
   const [paymentStatus, setPaymentStatus] = useState<'verifying' | 'paid' | 'unpaid'>('verifying');
   const [report, setReport] = useState('');
@@ -81,26 +84,43 @@ export default function ReportPage() {
   const typeData = BLOOM_TYPES[typeId as BloomTypeId];
   const accent = typeData ? FACTION_COLOR[typeData.factionColor].accent : '#c9a84c';
 
-  // Step 1: verify payment
+  // Step 1: verify payment — URL session_id takes priority, falls back to localStorage
   useEffect(() => {
-    if (!sessionId) {
+    const savedSessionId = localStorage.getItem(sessionKey(typeId));
+    const effectiveSessionId = urlSessionId || savedSessionId;
+
+    if (!effectiveSessionId) {
       setPaymentStatus('unpaid');
       return;
     }
     (async () => {
       try {
-        const res = await fetch(`/api/verify-payment?session_id=${sessionId}`);
+        const res = await fetch(`/api/verify-payment?session_id=${effectiveSessionId}`);
         const data = await res.json();
-        setPaymentStatus(data.paid ? 'paid' : 'unpaid');
+        if (data.paid) {
+          localStorage.setItem(sessionKey(typeId), effectiveSessionId);
+          setPaymentStatus('paid');
+        } else {
+          setPaymentStatus('unpaid');
+        }
       } catch {
         setPaymentStatus('unpaid');
       }
     })();
-  }, [sessionId]);
+  }, [urlSessionId, typeId]);
 
-  // Step 2: stream report only after payment confirmed
+  // Step 2: load cached report or stream a new one
   useEffect(() => {
     if (paymentStatus !== 'paid' || !typeData) return;
+
+    // Return cached report immediately — no API call needed
+    const cached = localStorage.getItem(reportKey(typeId));
+    if (cached) {
+      setReport(cached);
+      setLoading(false);
+      setDone(true);
+      return;
+    }
 
     const result = loadResult();
     const stats = result?.stats ?? {
@@ -131,11 +151,15 @@ export default function ReportPage() {
         const decoder = new TextDecoder();
         setLoading(false);
 
+        let fullReport = '';
         while (true) {
           const { done: streamDone, value } = await reader.read();
           if (streamDone) break;
-          setReport((prev) => prev + decoder.decode(value, { stream: true }));
+          const chunk = decoder.decode(value, { stream: true });
+          fullReport += chunk;
+          setReport((prev) => prev + chunk);
         }
+        localStorage.setItem(reportKey(typeId), fullReport);
         setDone(true);
       } catch (e) {
         if ((e as Error).name === 'AbortError') return;
