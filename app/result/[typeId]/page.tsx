@@ -252,21 +252,29 @@ export default function ResultPage() {
   const handleSaveImage = async () => {
     if (!shareCardRef.current || saving) return;
     setSaving(true);
+    const card = shareCardRef.current;
     try {
       const html2canvas = (await import('html2canvas')).default;
-      const canvas = await html2canvas(shareCardRef.current, {
+
+      // html2canvas が position:fixed + 大きな負の left 値でオフセットを誤算するため
+      // キャプチャ直前だけ原点(0,0)に移動し、描画後に戻す
+      card.style.left = '0';
+      card.style.top = '0';
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+
+      const canvas = await html2canvas(card, {
         scale: 3,
         useCORS: true,
         backgroundColor: '#0a0a0a',
         logging: false,
       });
 
+      card.style.left = '-9999px';
+
       const fileName = `bloom-result-${typeData.catchTitle}.png`;
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
       if (isIOS) {
-        // iOS: <a download> 非対応のため Web Share API でファイルを渡す
-        // → 共有シートで「画像を保存」すると写真ライブラリに保存される
         const blob = await new Promise<Blob>((resolve, reject) =>
           canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png')
         );
@@ -274,17 +282,16 @@ export default function ResultPage() {
         if (navigator.canShare?.({ files: [file] })) {
           await navigator.share({ files: [file], title: 'ブルーム診断結果' });
         } else {
-          // iOS 14以下など share files 非対応: 新しいタブで開く（長押し→保存）
           window.open(canvas.toDataURL('image/png'), '_blank');
         }
       } else {
-        // Desktop / Android: 直接ダウンロード
         const link = document.createElement('a');
         link.download = fileName;
         link.href = canvas.toDataURL('image/png');
         link.click();
       }
     } finally {
+      card.style.left = '-9999px';
       setSaving(false);
     }
   };
@@ -561,19 +568,19 @@ export default function ResultPage() {
         {/* Accent top bar */}
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: accent }} />
         {/* Radial gradient bg */}
-        <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 110% 50% at 50% 0%, ${accent}1e 0%, #0a0a0a 60%)` }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: `radial-gradient(ellipse 110% 50% at 50% 0%, ${accent}1e 0%, #0a0a0a 60%)` }} />
 
         {/*
-          5 sections with justifyContent: space-between
-          → 4 gaps are calculated automatically, no manual margins needed
-          Sections: Header / Identity / Radar / Battle+Skills / Footer
+          position:absolute で top/left/right/bottom を明示 →
+          padding+calc を使わないため html2canvas が正確にレンダリングできる
+          top: 3(bar) + 20(pad) = 23 / left: 24 / right: 24 / bottom: 16
         */}
         <div style={{
-          position: 'relative', zIndex: 1,
-          padding: '20px 24px 16px',
-          marginTop: 3,
-          height: 'calc(100% - 3px)',
-          boxSizing: 'border-box',
+          position: 'absolute',
+          top: 23,
+          left: 24,
+          right: 24,
+          bottom: 16,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
