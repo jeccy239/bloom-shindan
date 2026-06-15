@@ -303,11 +303,16 @@ export default function ResultPage() {
       {/* HERO CARD — screenshotworthy      */}
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <div
-        className="w-full max-w-lg text-white px-6 pt-8 pb-8 animate-fadeInUp"
+        className="w-full max-w-lg text-white px-6 pt-8 pb-8 animate-fadeInUp relative"
         style={{
           background: `radial-gradient(ellipse 80% 60% at 50% -10%, ${accent}18 0%, #0a0a0a 65%)`,
         }}
       >
+        {/* MH-style corner brackets */}
+        <div style={{ position: 'absolute', top: 12, left: 12, width: 18, height: 18, borderTop: `1.5px solid ${accent}70`, borderLeft: `1.5px solid ${accent}70` }} />
+        <div style={{ position: 'absolute', top: 12, right: 12, width: 18, height: 18, borderTop: `1.5px solid ${accent}70`, borderRight: `1.5px solid ${accent}70` }} />
+        <div style={{ position: 'absolute', bottom: 12, left: 12, width: 18, height: 18, borderBottom: `1.5px solid ${accent}70`, borderLeft: `1.5px solid ${accent}70` }} />
+        <div style={{ position: 'absolute', bottom: 12, right: 12, width: 18, height: 18, borderBottom: `1.5px solid ${accent}70`, borderRight: `1.5px solid ${accent}70` }} />
         {/* Top bar */}
         <div className="flex items-center justify-between mb-8">
           <span className="text-[8px] font-bold tracking-[0.4em] text-white/20">BLOOM DIAGNOSIS</span>
@@ -346,21 +351,24 @@ export default function ResultPage() {
           </span>
         </div>
 
-        {/* Divider */}
-        <div className="h-px mb-6" style={{ background: `linear-gradient(to right, ${accent}40, transparent)` }} />
+        {/* Ornate divider */}
+        <div className="flex items-center gap-2 mb-6">
+          <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, ${accent}50)` }} />
+          <span style={{ fontSize: 8, color: accent }}>◆</span>
+          <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, ${accent}50)` }} />
+        </div>
 
         {/* Radar chart */}
         <div className="flex justify-center mb-6">
           <RadarChart stats={typeData.rpgStats} color={accent} size={260} />
         </div>
 
-        {/* Divider */}
-        <div className="h-px mb-5" style={{ background: `linear-gradient(to right, ${accent}40, transparent)` }} />
-
         {/* Battle power */}
         <div className="mb-6">
-          <div className="text-[8px] font-bold tracking-[0.4em] mb-2" style={{ color: accent }}>
-            BATTLE POWER
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, ${accent}50)` }} />
+            <span className="text-[8px] font-bold tracking-[0.4em] text-white/40">BATTLE POWER</span>
+            <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, ${accent}50)` }} />
           </div>
           <div className="flex items-end gap-3 mb-2">
             <span className="text-5xl font-black tabular-nums leading-none">
@@ -383,7 +391,11 @@ export default function ResultPage() {
 
         {/* Special skills */}
         <div>
-          <div className="text-[8px] font-bold tracking-[0.4em] text-white/20 mb-3">特殊スキル</div>
+          <div className="flex items-center gap-2 mb-4">
+            <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, rgba(255,255,255,0.15))` }} />
+            <span className="text-[8px] font-bold tracking-[0.4em] text-white/35">特殊スキル</span>
+            <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, rgba(255,255,255,0.15))` }} />
+          </div>
           <div className="flex flex-col gap-3">
             {typeData.specialSkills.map((skill) => (
               <div key={skill.name} className="flex items-center justify-between">
@@ -552,6 +564,7 @@ export default function ResultPage() {
       {/* Hidden card for image export      */}
       {/* 360×640 → scale:3 → 1080×1920    */}
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      {/* Hunter Card (MH aesthetic) — 360×640 → scale:3 → 1080×1920 */}
       <div
         ref={shareCardRef}
         style={{
@@ -565,22 +578,28 @@ export default function ResultPage() {
           background: '#0a0a0a',
         }}
       >
-        {/* Accent top bar */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: accent }} />
-        {/* Radial gradient bg */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: `radial-gradient(ellipse 110% 50% at 50% 0%, ${accent}1e 0%, #0a0a0a 60%)` }} />
+        {/* Diagonal line texture */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 20px, ${accent}05 20px, ${accent}05 21px)` }} />
+        {/* Radial glow */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: `radial-gradient(ellipse 100% 50% at 50% 0%, ${accent}1c 0%, transparent 60%)` }} />
+        {/* Outer frame border */}
+        <div style={{ position: 'absolute', top: 10, left: 10, right: 10, bottom: 10, border: `1px solid ${accent}25` }} />
+        {/* Corner brackets — TL */}
+        <div style={{ position: 'absolute', top: 10, left: 10, width: 22, height: 22, borderTop: `2px solid ${accent}`, borderLeft: `2px solid ${accent}` }} />
+        {/* Corner brackets — TR */}
+        <div style={{ position: 'absolute', top: 10, right: 10, width: 22, height: 22, borderTop: `2px solid ${accent}`, borderRight: `2px solid ${accent}` }} />
+        {/* Corner brackets — BL */}
+        <div style={{ position: 'absolute', bottom: 10, left: 10, width: 22, height: 22, borderBottom: `2px solid ${accent}`, borderLeft: `2px solid ${accent}` }} />
+        {/* Corner brackets — BR */}
+        <div style={{ position: 'absolute', bottom: 10, right: 10, width: 22, height: 22, borderBottom: `2px solid ${accent}`, borderRight: `2px solid ${accent}` }} />
 
-        {/*
-          position:absolute で top/left/right/bottom を明示 →
-          padding+calc を使わないため html2canvas が正確にレンダリングできる
-          top: 3(bar) + 20(pad) = 23 / left: 24 / right: 24 / bottom: 16
-        */}
+        {/* Content */}
         <div style={{
           position: 'absolute',
-          top: 23,
-          left: 24,
-          right: 24,
-          bottom: 16,
+          top: 30,
+          left: 30,
+          right: 30,
+          bottom: 22,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -588,73 +607,65 @@ export default function ResultPage() {
 
           {/* ── S1: Header ── */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 7, fontWeight: 700, letterSpacing: '0.45em', color: 'rgba(255,255,255,0.18)', textTransform: 'uppercase' }}>BLOOM DIAGNOSIS</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 900, letterSpacing: '0.2em', color: rarity.color, border: `1px solid ${rarity.color}55`, padding: '2px 5px' }}>{rarity.label}</span>
-              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>上位{typeData.populationPercent}%</span>
+            <span style={{ fontSize: 7, fontWeight: 700, letterSpacing: '0.45em', color: 'rgba(255,255,255,0.18)' }}>BLOOM DIAGNOSIS</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span style={{ fontSize: 7, fontFamily: 'monospace', color: 'rgba(255,255,255,0.2)', letterSpacing: '0.2em' }}>TYPE {typeData.id}</span>
+              <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: 8, margin: '0 2px' }}>·</span>
+              <span style={{ fontSize: 9, fontWeight: 900, letterSpacing: '0.15em', color: rarity.color, border: `1px solid ${rarity.color}55`, padding: '1px 5px' }}>{rarity.label}</span>
+              <span style={{ fontSize: 7, color: 'rgba(255,255,255,0.25)', marginLeft: 3 }}>上位{typeData.populationPercent}%</span>
             </div>
           </div>
 
-          {/* ── S2: Type identity ── */}
+          {/* ── S2: Identity ── */}
           <div>
-            <div style={{ fontSize: 7, fontFamily: 'monospace', color: 'rgba(255,255,255,0.2)', marginBottom: 6, letterSpacing: '0.35em' }}>TYPE {typeData.id}</div>
-            <div style={{ fontSize: 32, fontWeight: 900, color: 'white', lineHeight: 1.15, marginBottom: 8, letterSpacing: '-0.02em' }}>{typeData.catchTitle}</div>
-            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)', fontStyle: 'italic', marginBottom: 10 }}>"{typeData.catchCopy}"</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-              <span style={{ fontSize: 12, fontWeight: 900, color: accent, letterSpacing: '0.05em' }}>{typeData.jobClass}</span>
-              <span style={{ color: 'rgba(255,255,255,0.15)' }}>·</span>
-              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)' }}>{typeData.characterTitle}</span>
+            <div style={{ fontSize: 28, fontWeight: 900, color: 'white', lineHeight: 1.1, marginBottom: 6, letterSpacing: '-0.02em' }}>{typeData.catchTitle}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 6 }}>
+              <span style={{ fontSize: 11, fontWeight: 900, color: accent, letterSpacing: '0.06em' }}>{typeData.jobClass}</span>
+              <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 9 }}>·</span>
+              <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.05em' }}>{typeData.faction}</span>
             </div>
-            <div style={{ display: 'inline-block', fontSize: 7, fontWeight: 700, letterSpacing: '0.3em', color: accent, border: `1px solid ${accent}35`, background: `${accent}10`, padding: '3px 8px' }}>{typeData.faction}</div>
+            <div style={{ fontSize: 8, color: 'rgba(255,255,255,0.35)', fontStyle: 'italic' }}>"{typeData.catchCopy}"</div>
           </div>
 
-          {/* ── S3: Radar (dividers + chart grouped) ── */}
+          {/* ── S3: Status bars (MH style) ── */}
           <div>
-            <div style={{ height: 1, background: `linear-gradient(to right, ${accent}50, transparent)`, marginBottom: 10 }} />
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 10 }}>
-              <RadarChart stats={typeData.rpgStats} color={accent} size={166} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+              <div style={{ flex: 1, height: 1, background: `linear-gradient(to right, transparent, ${accent}55)` }} />
+              <span style={{ fontSize: 7, fontWeight: 700, letterSpacing: '0.4em', color: 'rgba(255,255,255,0.4)' }}>STATUS</span>
+              <div style={{ flex: 1, height: 1, background: `linear-gradient(to left, transparent, ${accent}55)` }} />
             </div>
-            <div style={{ height: 1, background: `linear-gradient(to right, ${accent}50, transparent)` }} />
-          </div>
-
-          {/* ── S4: Battle Power + Skills (grouped) ── */}
-          <div>
-            {/* Battle Power */}
-            <div style={{ marginBottom: 10 }}>
-              <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: '0.45em', color: accent, marginBottom: 5, textTransform: 'uppercase' }}>Battle Power</div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, marginBottom: 5 }}>
-                <span style={{ fontSize: 32, fontWeight: 900, color: 'white', lineHeight: 1 }}>{battlePower.toLocaleString()}</span>
-                <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)', marginBottom: 2 }}>/ 15,000</span>
-              </div>
-              <div style={{ height: 2, borderRadius: 999, background: 'rgba(255,255,255,0.08)' }}>
-                <div style={{ width: `${Math.min((battlePower / 15000) * 100, 100)}%`, height: '100%', background: accent, borderRadius: 999 }} />
-              </div>
-            </div>
-            {/* Skills */}
-            <div>
-              <div style={{ fontSize: 7, fontWeight: 700, letterSpacing: '0.45em', color: 'rgba(255,255,255,0.2)', marginBottom: 8, textTransform: 'uppercase' }}>Special Skills</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {typeData.specialSkills.map((skill) => (
-                  <div key={skill.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                      <span style={{ fontSize: 13 }}>{skill.emoji}</span>
-                      <span style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.78)' }}>{skill.name}</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <div key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: i < skill.level ? accent : 'rgba(255,255,255,0.1)' }} />
-                      ))}
-                      <span style={{ fontSize: 8, fontFamily: 'monospace', color: 'rgba(255,255,255,0.32)', marginLeft: 4 }}>Lv.{skill.level}</span>
-                    </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+              {(Object.entries(typeData.rpgStats) as [string, number][]).map(([key, value]) => (
+                <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)', width: 36, flexShrink: 0, letterSpacing: '0.02em' }}>{key}</span>
+                  <div style={{ flex: 1, height: 4, background: 'rgba(255,255,255,0.08)', borderRadius: 1, overflow: 'hidden' }}>
+                    <div style={{ width: `${value}%`, height: '100%', background: `linear-gradient(to right, ${accent}aa, ${accent})`, borderRadius: 1 }} />
                   </div>
-                ))}
-              </div>
+                  <span style={{ fontSize: 9, fontFamily: 'monospace', color: 'rgba(255,255,255,0.55)', width: 22, textAlign: 'right', flexShrink: 0 }}>{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── S4: Battle Power ── */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+              <div style={{ flex: 1, height: 1, background: `linear-gradient(to right, transparent, ${accent}55)` }} />
+              <span style={{ fontSize: 7, fontWeight: 700, letterSpacing: '0.4em', color: 'rgba(255,255,255,0.4)' }}>BATTLE POWER</span>
+              <div style={{ flex: 1, height: 1, background: `linear-gradient(to left, transparent, ${accent}55)` }} />
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, marginBottom: 7 }}>
+              <span style={{ fontSize: 38, fontWeight: 900, color: 'white', lineHeight: 1, letterSpacing: '-0.02em' }}>{battlePower.toLocaleString()}</span>
+              <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', marginBottom: 4 }}>/ 15,000</span>
+            </div>
+            <div style={{ height: 4, borderRadius: 1, background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+              <div style={{ width: `${Math.min((battlePower / 15000) * 100, 100)}%`, height: '100%', background: `linear-gradient(to right, ${accent}aa, ${accent})`, borderRadius: 1 }} />
             </div>
           </div>
 
           {/* ── S5: Footer ── */}
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 10, display: 'flex', justifyContent: 'center' }}>
-            <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.15em' }}>bloom-shindan.vercel.app</span>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.18)', letterSpacing: '0.18em' }}>bloom-shindan.vercel.app</span>
           </div>
 
         </div>
