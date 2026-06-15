@@ -332,15 +332,12 @@ export default function ResultPage() {
           <div className="text-[8px] font-mono text-white/20 mb-2 tracking-[0.3em]">
             TYPE {typeData.id}
           </div>
-          <h1 className="text-[2.75rem] font-black leading-tight mb-1 tracking-tight">
-            {typeData.catchTitle}
+          <h1 className="text-[2.75rem] font-black leading-tight mb-1 tracking-tight" style={{ color: accent }}>
+            {typeData.jobClass}
           </h1>
+          <p className="text-lg font-bold text-white/85 mb-1 tracking-tight">{typeData.catchTitle}</p>
           <p className="text-xs text-white/55 italic mb-3">"{typeData.catchCopy}"</p>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-sm font-black tracking-wider" style={{ color: accent }}>
-              {typeData.jobClass}
-            </span>
-            <span className="text-white/15">·</span>
             <span className="text-xs text-white/55">{typeData.characterTitle}</span>
           </div>
           <span
@@ -618,11 +615,12 @@ export default function ResultPage() {
 
           {/* ── S2: Identity ── */}
           <div>
-            <div style={{ fontSize: 28, fontWeight: 900, color: 'white', lineHeight: 1.1, marginBottom: 6, letterSpacing: '-0.02em' }}>{typeData.catchTitle}</div>
+            <div style={{ fontSize: 28, fontWeight: 900, color: accent, lineHeight: 1.1, marginBottom: 4, letterSpacing: '-0.02em' }}>{typeData.jobClass}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'rgba(255,255,255,0.8)', marginBottom: 6, letterSpacing: '-0.01em' }}>{typeData.catchTitle}</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 6 }}>
-              <span style={{ fontSize: 11, fontWeight: 900, color: accent, letterSpacing: '0.06em' }}>{typeData.jobClass}</span>
-              <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 9 }}>·</span>
               <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.05em' }}>{typeData.faction}</span>
+              <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 9 }}>·</span>
+              <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.4)' }}>{typeData.characterTitle}</span>
             </div>
             <div style={{ fontSize: 8, color: 'rgba(255,255,255,0.35)', fontStyle: 'italic' }}>"{typeData.catchCopy}"</div>
           </div>

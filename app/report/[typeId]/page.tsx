@@ -237,10 +237,9 @@ export default function ReportPage() {
         <div className="mb-2">
           <span className="text-[9px] font-mono text-white/20 tracking-[0.3em]">TYPE {typeData.id}</span>
         </div>
-        <h1 className="text-3xl font-black text-white mb-1">{typeData.catchTitle}</h1>
-        <p className="text-xs font-bold tracking-wider mb-4" style={{ color: accent }}>
-          {typeData.jobClass}
-        </p>
+        <h1 className="text-3xl font-black mb-1" style={{ color: accent }}>{typeData.jobClass}</h1>
+        <p className="text-base font-bold text-white mb-1">{typeData.catchTitle}</p>
+        <p className="text-xs font-bold tracking-wider mb-4 text-white/40">{typeData.characterTitle}</p>
         <div className="h-px" style={{ background: `linear-gradient(to right, ${accent}40, transparent)` }} />
       </div>
 
