@@ -35,57 +35,127 @@ const SECTIONS = [
   },
 ];
 
+const TYPE_LIST = [
+  { id: '01', title: 'アークセージ' },
+  { id: '02', title: 'シャドウストラテジスト' },
+  { id: '03', title: 'ソウルヒーラー' },
+  { id: '04', title: 'アイアンガーディアン' },
+  { id: '05', title: 'ワールドメーカー' },
+  { id: '06', title: 'エンペラーロード' },
+  { id: '07', title: 'オラクル' },
+  { id: '08', title: 'アーキテクト' },
+  { id: '09', title: 'フロンティア' },
+  { id: '10', title: 'インフルエンサー' },
+  { id: '11', title: 'マスタースミス' },
+  { id: '12', title: 'レボリューショナー' },
+  { id: '13', title: 'フレイムスピーカー' },
+  { id: '14', title: 'フィールドキーパー' },
+  { id: '15', title: 'ワードメイジ' },
+  { id: '16', title: 'ソウルケアラー' },
+];
+
+const CHARACTER_IMAGE: Record<string, string> = {
+  '01': '/thumbnails/image_01_アークセージ_02.png',
+  '02': '/thumbnails/image_02_シャドウストラテジスト_02.png',
+  '03': '/thumbnails/image_03_ソウルヒーラー_02.png',
+  '04': '/thumbnails/image_04_アイアンガーディアン.png',
+  '05': '/thumbnails/image_05_ワールドメーカー.png',
+  '06': '/thumbnails/image_06_エンペラーロード.png',
+  '07': '/thumbnails/image_07_オラクル.png',
+  '08': '/thumbnails/image_08_アーキテクト.png',
+  '09': '/thumbnails/image_09_フロンティア.png',
+  '10': '/thumbnails/image_10_インフルエンサー.png',
+  '11': '/thumbnails/image_11_マスタースミス.png',
+  '12': '/thumbnails/image_12_レボリューショナー.png',
+  '13': '/thumbnails/image_13_フレイムスピーカー.png',
+  '14': '/thumbnails/image_14_フィールドキーパー.png',
+  '15': '/thumbnails/image_15_ワールドメイジ.png',
+  '16': '/thumbnails/image_16_ソウルケアラー.png',
+};
+
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center px-6 py-12">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center px-6 py-12">
       <div className="max-w-lg w-full">
 
         {/* Header */}
         <div className="mb-10">
-          <div className="text-[9px] font-bold tracking-[0.5em] text-gray-300 uppercase mb-6">
+          <div className="text-[9px] font-bold tracking-[0.5em] text-white/20 uppercase mb-6">
             ブルーム診断システム
           </div>
-          <h1 className="text-3xl font-black text-gray-900 leading-tight mb-3">
+          <h1 className="text-3xl font-black text-white leading-tight mb-3">
             プライバシー<br />ポリシー
           </h1>
           <div className="w-6 h-0.5 mb-4" style={{ background: '#c9a84c' }} />
-          <p className="text-[10px] text-gray-400 leading-loose">
+          <p className="text-[10px] text-white/30 leading-loose">
             最終更新日：2025年6月
           </p>
         </div>
 
         {/* Intro */}
-        <p className="text-xs text-gray-600 leading-loose mb-8 border-l-2 pl-4" style={{ borderColor: '#c9a84c' }}>
+        <p className="text-xs text-white/50 leading-loose mb-8 border-l-2 pl-4" style={{ borderColor: '#c9a84c' }}>
           株式会社LEVAN（以下「当社」）は、ブルーム診断（bloom-shindan.vercel.app、以下「当サイト」）におけるユーザーの個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。
         </p>
 
         {/* Sections */}
         <div className="flex flex-col gap-0">
           {SECTIONS.map((section, i) => (
-            <div key={i} className="border-t border-gray-100 py-6">
+            <div key={i} className="border-t border-white/8 py-6">
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-[9px] font-mono text-gray-300">{String(i + 1).padStart(2, '0')}</span>
-                <h2 className="text-sm font-black text-gray-900 tracking-wide">{section.title}</h2>
+                <span className="text-[9px] font-mono text-white/20">{String(i + 1).padStart(2, '0')}</span>
+                <h2 className="text-sm font-black text-white tracking-wide">{section.title}</h2>
               </div>
-              <p className="text-xs text-gray-600 leading-loose whitespace-pre-line pl-7">
+              <p className="text-xs text-white/45 leading-loose whitespace-pre-line pl-7">
                 {section.body}
               </p>
             </div>
           ))}
-          <div className="border-t border-gray-100" />
+          <div className="border-t border-white/8" />
         </div>
 
         {/* Back */}
-        <div className="mt-10">
+        <div className="mt-10 mb-16">
           <Link
             href="/"
-            className="text-[9px] font-bold tracking-[0.3em] text-gray-400 hover:text-gray-700 transition-colors"
+            className="text-[9px] font-bold tracking-[0.3em] text-white/30 hover:text-white/70 transition-colors"
           >
             ← トップへ戻る
           </Link>
         </div>
 
+        {/* Character grid */}
+        <div className="border-t border-white/8 pt-6">
+          <div className="text-[8px] font-bold tracking-[0.5em] text-white/20 uppercase mb-4">
+            16のパーソナリティ
+          </div>
+          <div className="grid grid-cols-4 gap-x-2 gap-y-4">
+            {TYPE_LIST.map((t) => (
+              <Link key={t.id} href={`/result/${t.id}`} className="flex flex-col items-center gap-1 group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={CHARACTER_IMAGE[t.id]}
+                  alt={t.title}
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
+                />
+                <span className="text-[7px] font-mono text-white/20">{t.id}</span>
+                <span className="text-[8px] text-white/35 text-center leading-tight">{t.title}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
       </div>
+
+      {/* Footer */}
+      <div className="mt-12 pt-6 border-t border-white/8 w-full max-w-lg flex justify-between items-center">
+        <div className="text-[8px] text-white/20">© 2025 株式会社LEVAN</div>
+        <Link href="/privacy" className="text-[8px] text-white/20 tracking-widest">
+          プライバシーポリシー
+        </Link>
+      </div>
+
     </div>
   );
 }
