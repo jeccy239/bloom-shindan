@@ -15,6 +15,25 @@ const FACTION_COLOR: Record<FactionColor, { accent: string }> = {
   gold:   { accent: '#c9a84c' },
 };
 
+const CHARACTER_IMAGE: Record<string, string> = {
+  '01': '/image_01_アークセージ_02.png',
+  '02': '/image_02_シャドウストラテジスト_02.png',
+  '03': '/image_03_ソウルヒーラー_02.png',
+  '04': '/image_04_アイアンガーディアン.png',
+  '05': '/image_05_ワールドメーカー.png',
+  '06': '/image_06_エンペラーロード.png',
+  '07': '/image_07_オラクル.png',
+  '08': '/image_08_アーキテクト.png',
+  '09': '/image_09_フロンティア.png',
+  '10': '/image_10_インフルエンサー.png',
+  '11': '/image_11_マスタースミス.png',
+  '12': '/image_12_レボリューショナー.png',
+  '13': '/image_13_フレイムスピーカー.png',
+  '14': '/image_14_フィールドキーパー.png',
+  '15': '/image_15_ワールドメイジ.png',
+  '16': '/image_16_ソウルケアラー.png',
+};
+
 const RARITY_STYLE: Record<Rarity, { label: string; color: string }> = {
   SSR: { label: 'SSR', color: '#c9a84c' },
   SR:  { label: 'SR',  color: '#9ca3af' },
@@ -348,6 +367,21 @@ export default function ResultPage() {
           </span>
         </div>
 
+        {/* Character image */}
+        <div className="flex justify-center my-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={CHARACTER_IMAGE[typeId] ?? ''}
+            alt={typeData.jobClass}
+            style={{
+              width: 200,
+              height: 200,
+              objectFit: 'contain',
+              filter: `drop-shadow(0 0 24px ${accent}55)`,
+            }}
+          />
+        </div>
+
         {/* Ornate divider */}
         <div className="flex items-center gap-2 mb-6">
           <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, ${accent}50)` }} />
@@ -623,6 +657,21 @@ export default function ResultPage() {
               <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.4)' }}>{typeData.characterTitle}</span>
             </div>
             <div style={{ fontSize: 8, color: 'rgba(255,255,255,0.35)', fontStyle: 'italic' }}>"{typeData.catchCopy}"</div>
+          </div>
+
+          {/* ── S2.5: Character image ── */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={CHARACTER_IMAGE[typeId] ?? ''}
+              alt={typeData.jobClass}
+              style={{
+                width: 140,
+                height: 140,
+                objectFit: 'contain',
+                filter: `drop-shadow(0 0 16px ${accent}60)`,
+              }}
+            />
           </div>
 
           {/* ── S3: Status bars (MH style) ── */}
