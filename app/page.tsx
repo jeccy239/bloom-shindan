@@ -25,6 +25,25 @@ const TYPE_LIST = [
   { id: '16', title: 'ソウルケアラー' },
 ];
 
+const CHARACTER_IMAGE: Record<string, string> = {
+  '01': '/image_01_アークセージ_02.png',
+  '02': '/image_02_シャドウストラテジスト_02.png',
+  '03': '/image_03_ソウルヒーラー_02.png',
+  '04': '/image_04_アイアンガーディアン.png',
+  '05': '/image_05_ワールドメーカー.png',
+  '06': '/image_06_エンペラーロード.png',
+  '07': '/image_07_オラクル.png',
+  '08': '/image_08_アーキテクト.png',
+  '09': '/image_09_フロンティア.png',
+  '10': '/image_10_インフルエンサー.png',
+  '11': '/image_11_マスタースミス.png',
+  '12': '/image_12_レボリューショナー.png',
+  '13': '/image_13_フレイムスピーカー.png',
+  '14': '/image_14_フィールドキーパー.png',
+  '15': '/image_15_ワールドメイジ.png',
+  '16': '/image_16_ソウルケアラー.png',
+};
+
 const STATS = [
   { v: '50', u: '問', l: '設問数' },
   { v: '16', u: '種', l: 'タイプ' },
@@ -88,12 +107,20 @@ export default function Home() {
           <div className="text-[8px] font-bold tracking-[0.5em] text-white/20 uppercase mb-4">
             16のパーソナリティ
           </div>
-          <div className="grid grid-cols-3 gap-y-2.5">
+          <div className="grid grid-cols-4 gap-x-2 gap-y-4">
             {TYPE_LIST.map((t) => (
-              <div key={t.id} className="flex items-center gap-1.5">
-                <span className="text-[8px] font-mono text-white/20">{t.id}</span>
-                <span className="text-[10px] text-white/30">{t.title}</span>
-              </div>
+              <Link key={t.id} href={`/result/${t.id}`} className="flex flex-col items-center gap-1 group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={CHARACTER_IMAGE[t.id]}
+                  alt={t.title}
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
+                />
+                <span className="text-[7px] font-mono text-white/20">{t.id}</span>
+                <span className="text-[8px] text-white/35 text-center leading-tight">{t.title}</span>
+              </Link>
             ))}
           </div>
         </div>
