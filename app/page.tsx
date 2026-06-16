@@ -26,22 +26,22 @@ const TYPE_LIST = [
 ];
 
 const CHARACTER_IMAGE: Record<string, string> = {
-  '01': '/image_01_アークセージ_02.png',
-  '02': '/image_02_シャドウストラテジスト_02.png',
-  '03': '/image_03_ソウルヒーラー_02.png',
-  '04': '/image_04_アイアンガーディアン.png',
-  '05': '/image_05_ワールドメーカー.png',
-  '06': '/image_06_エンペラーロード.png',
-  '07': '/image_07_オラクル.png',
-  '08': '/image_08_アーキテクト.png',
-  '09': '/image_09_フロンティア.png',
-  '10': '/image_10_インフルエンサー.png',
-  '11': '/image_11_マスタースミス.png',
-  '12': '/image_12_レボリューショナー.png',
-  '13': '/image_13_フレイムスピーカー.png',
-  '14': '/image_14_フィールドキーパー.png',
-  '15': '/image_15_ワールドメイジ.png',
-  '16': '/image_16_ソウルケアラー.png',
+  '01': '/thumbnails/image_01_アークセージ_02.png',
+  '02': '/thumbnails/image_02_シャドウストラテジスト_02.png',
+  '03': '/thumbnails/image_03_ソウルヒーラー_02.png',
+  '04': '/thumbnails/image_04_アイアンガーディアン.png',
+  '05': '/thumbnails/image_05_ワールドメーカー.png',
+  '06': '/thumbnails/image_06_エンペラーロード.png',
+  '07': '/thumbnails/image_07_オラクル.png',
+  '08': '/thumbnails/image_08_アーキテクト.png',
+  '09': '/thumbnails/image_09_フロンティア.png',
+  '10': '/thumbnails/image_10_インフルエンサー.png',
+  '11': '/thumbnails/image_11_マスタースミス.png',
+  '12': '/thumbnails/image_12_レボリューショナー.png',
+  '13': '/thumbnails/image_13_フレイムスピーカー.png',
+  '14': '/thumbnails/image_14_フィールドキーパー.png',
+  '15': '/thumbnails/image_15_ワールドメイジ.png',
+  '16': '/thumbnails/image_16_ソウルケアラー.png',
 };
 
 const STATS = [
@@ -114,9 +114,9 @@ export default function Home() {
                 <img
                   src={CHARACTER_IMAGE[t.id]}
                   alt={t.title}
-                  width={64}
-                  height={64}
-                  className="w-16 h-16 object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
+                  width={44}
+                  height={44}
+                  className="w-11 h-11 object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
                 />
                 <span className="text-[7px] font-mono text-white/20">{t.id}</span>
                 <span className="text-[8px] text-white/35 text-center leading-tight">{t.title}</span>
