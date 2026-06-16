@@ -4,7 +4,7 @@ export type BloomTypeId =
 
 export type AbilityRank = 'S' | 'A' | 'B' | 'C' | 'D';
 export type Faction = '知略陣営' | '統治陣営' | '創造陣営' | '共鳴陣営';
-export type FactionColor = 'blue' | 'red' | 'purple' | 'gold';
+export type FactionColor = 'blue' | 'red' | 'purple' | 'gold' | 'cyan' | 'orange' | 'green';
 export type Rarity = 'SSR' | 'SR' | 'R' | 'N';
 
 export interface AxisScore {
@@ -257,7 +257,7 @@ export const BLOOM_TYPES: Record<BloomTypeId, BloomTypeDef> = {
     characterTitle: '皇帝',
     jobClass: 'エンペラーロード',
     faction: '統治陣営',
-    factionColor: 'red',
+    factionColor: 'gold',
     guild: '統率ギルド',
     guildRole: '黄金の鎧を纏う将軍',
     guildTags: ['統率力', '組織の要', '不動の柱'],
@@ -287,7 +287,7 @@ export const BLOOM_TYPES: Record<BloomTypeId, BloomTypeDef> = {
     characterTitle: '預言者',
     jobClass: 'オラクル',
     faction: '知略陣営',
-    factionColor: 'blue',
+    factionColor: 'cyan',
     guild: '預言ギルド',
     guildRole: '星を読むビジョナリー',
     guildTags: ['先見者', '感性の旅人', '社会の羅針盤'],
@@ -407,7 +407,7 @@ export const BLOOM_TYPES: Record<BloomTypeId, BloomTypeDef> = {
     characterTitle: '鍛冶師',
     jobClass: 'マスタースミス',
     faction: '統治陣営',
-    factionColor: 'red',
+    factionColor: 'orange',
     guild: '職人ギルド',
     guildRole: '炉端に立つ無口な鍛冶師',
     guildTags: ['職人気質', '唯一無二の技', '黙々と磨く'],
@@ -467,7 +467,7 @@ export const BLOOM_TYPES: Record<BloomTypeId, BloomTypeDef> = {
     characterTitle: '炎の演説家',
     jobClass: 'フレイムスピーカー',
     faction: '共鳴陣営',
-    factionColor: 'gold',
+    factionColor: 'orange',
     guild: '扇動ギルド',
     guildRole: '剣と言葉を持つ孤高の論客',
     guildTags: ['論理の戦士', '言葉で社会を動かす', '個の力'],
@@ -497,7 +497,7 @@ export const BLOOM_TYPES: Record<BloomTypeId, BloomTypeDef> = {
     characterTitle: '戦場指揮官',
     jobClass: 'フィールドキーパー',
     faction: '統治陣営',
-    factionColor: 'red',
+    factionColor: 'green',
     guild: '専門ギルド',
     guildRole: '鉄の意志を持つ現場の砦',
     guildTags: ['専門の極み', '現場最強', '一流のプロ'],

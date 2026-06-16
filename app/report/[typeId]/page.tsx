@@ -12,6 +12,9 @@ const FACTION_COLOR: Record<FactionColor, { accent: string }> = {
   red:    { accent: '#ef4444' },
   purple: { accent: '#a855f7' },
   gold:   { accent: '#c9a84c' },
+  cyan:   { accent: '#22d3ee' },
+  orange: { accent: '#f97316' },
+  green:  { accent: '#22c55e' },
 };
 
 function PurchaseButton({ typeId, accent }: { typeId: string; accent: string }) {
