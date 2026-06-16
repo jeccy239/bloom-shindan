@@ -114,9 +114,9 @@ export default function Home() {
                 <img
                   src={CHARACTER_IMAGE[t.id]}
                   alt={t.title}
-                  width={44}
-                  height={44}
-                  className="w-11 h-11 object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 object-contain opacity-50 group-hover:opacity-90 transition-opacity duration-200"
                 />
                 <span className="text-[7px] font-mono text-white/20">{t.id}</span>
                 <span className="text-[8px] text-white/35 text-center leading-tight">{t.title}</span>

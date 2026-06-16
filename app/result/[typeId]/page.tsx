@@ -335,10 +335,15 @@ export default function ResultPage() {
         {/* Top bar */}
         <div className="flex items-center justify-between mb-8">
           <span className="text-[8px] font-bold tracking-[0.4em] text-white/20">BLOOM DIAGNOSIS</span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span
-              className="text-[10px] font-black tracking-widest px-2 py-0.5"
-              style={{ color: rarity.color, border: `1px solid ${rarity.color}50` }}
+              className="text-2xl font-black tracking-widest px-3 py-1"
+              style={{
+                color: rarity.color,
+                border: `2px solid ${rarity.color}`,
+                textShadow: `0 0 12px ${rarity.color}99`,
+                boxShadow: `0 0 12px ${rarity.color}40`,
+              }}
             >
               {rarity.label}
             </span>
