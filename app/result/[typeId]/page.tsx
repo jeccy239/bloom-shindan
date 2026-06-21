@@ -526,6 +526,31 @@ export default function ResultPage() {
         {/* Deep Analysis CTA */}
         <DeepAnalysisCTA typeId={typeData.id} accent={accent} />
 
+        {/* LINE Banner */}
+        <a
+          href="https://lin.ee/OYB1EU8"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 flex items-center gap-4 p-5 border border-[#06C755]/30 bg-[#06C755]/06 hover:bg-[#06C755]/10 transition-colors animate-fadeInUp block"
+          style={{ animationDelay: '0.14s', opacity: 0 }}
+        >
+          <div
+            className="flex-shrink-0 w-11 h-11 flex items-center justify-center font-black text-white text-xs rounded-xl"
+            style={{ background: '#06C755' }}
+          >
+            LINE
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-[9px] font-bold tracking-[0.3em] mb-1" style={{ color: '#06C755' }}>
+              公式LINE — 無料
+            </div>
+            <p className="text-white/70 text-xs font-bold leading-snug">
+              強みを活かせる場所・詳細をLINEで配信中
+            </p>
+            <p className="text-white/30 text-[10px] mt-0.5">友だち追加で受け取る →</p>
+          </div>
+        </a>
+
         {/* Jobs & Hobbies */}
         <div className="mt-3 grid grid-cols-2 gap-3 animate-fadeInUp" style={{ animationDelay: '0.15s', opacity: 0 }}>
           <div className="border border-white/8 p-5">
