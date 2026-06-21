@@ -549,6 +549,9 @@ export default function ResultPage() {
             </p>
             <p className="text-white/30 text-[10px] mt-0.5">友だち追加で受け取る →</p>
           </div>
+          <div className="flex-shrink-0 text-right">
+            <span className="text-xs font-black" style={{ color: '#06C755' }}>無料</span>
+          </div>
         </a>
 
         {/* Jobs & Hobbies */}
