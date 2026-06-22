@@ -194,25 +194,56 @@ function DeepAnalysisCTA({ typeId, accent }: { typeId: string; accent: string })
   };
 
   return (
-    <div className="mt-3 animate-fadeInUp" style={{ animationDelay: '0.12s' }}>
+    <div className="mt-4 animate-fadeInUp" style={{ animationDelay: '0.12s' }}>
       <button
         onClick={handlePurchase}
         disabled={loading}
-        className="flex items-center justify-between w-full p-5 border transition-all group text-left disabled:opacity-60"
-        style={{ borderColor: `${accent}50`, background: `${accent}08` }}
+        className="w-full text-left disabled:opacity-60 transition-opacity"
+        style={{
+          background: `linear-gradient(135deg, ${accent}22 0%, ${accent}0a 100%)`,
+          border: `1.5px solid ${accent}70`,
+          boxShadow: `0 0 24px ${accent}20`,
+        }}
       >
-        <div>
-          <div className="text-[9px] font-bold tracking-[0.3em] mb-1.5" style={{ color: accent }}>
-            AI 深層分析レポート
+        {/* Header */}
+        <div
+          className="px-5 py-3 flex items-center justify-between"
+          style={{ borderBottom: `1px solid ${accent}25` }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-[9px] font-black tracking-[0.3em]" style={{ color: accent }}>
+              AI 深層分析レポート
+            </span>
           </div>
-          <p className="text-white/70 text-sm font-bold">あなただけの詳細分析を見る</p>
-          <p className="text-white/50 text-xs mt-1">強み・挑戦・人間関係・明日からの一歩</p>
-        </div>
-        <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-4">
-          <span className="text-lg font-black" style={{ color: accent }}>¥480</span>
-          <span className="text-[8px] text-white/30 group-hover:text-white/50 transition-colors">
-            {loading ? '処理中...' : '→'}
+          <span
+            className="text-[10px] font-black px-2 py-0.5"
+            style={{ background: accent, color: '#0a0a0a' }}
+          >
+            ¥480
           </span>
+        </div>
+
+        {/* Body */}
+        <div className="px-5 pt-4 pb-2">
+          <p className="text-white text-base font-black mb-3 leading-snug">
+            診断結果の"本当の意味"を<br />AIが徹底解説する
+          </p>
+          <div className="flex flex-col gap-1.5 mb-4">
+            {['あなたの本質', '隠れた強み × 3', '挑戦への扉 × 5', '人間関係の地図', '明日からの一歩'].map((item) => (
+              <div key={item} className="flex items-center gap-2">
+                <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: accent }} />
+                <span className="text-xs text-white/60">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div
+          className="mx-5 mb-5 py-3 flex items-center justify-center gap-2 font-black text-sm"
+          style={{ background: accent, color: '#0a0a0a' }}
+        >
+          {loading ? '処理中...' : '今すぐ読む →'}
         </div>
       </button>
     </div>
@@ -531,26 +562,22 @@ export default function ResultPage() {
           href="https://lin.ee/OYB1EU8"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 flex items-center gap-4 p-5 border border-[#06C755]/30 bg-[#06C755]/06 hover:bg-[#06C755]/10 transition-colors animate-fadeInUp block"
+          className="mt-3 block animate-fadeInUp"
           style={{ animationDelay: '0.14s', opacity: 0 }}
         >
-          <div
-            className="flex-shrink-0 w-11 h-11 flex items-center justify-center font-black text-white text-xs rounded-xl"
-            style={{ background: '#06C755' }}
-          >
-            LINE
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-[9px] font-bold tracking-[0.3em] mb-1" style={{ color: '#06C755' }}>
-              公式LINE — 無料
+          <div style={{ background: '#06C755' }} className="px-5 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center flex-shrink-0">
+                <span className="text-[10px] font-black" style={{ color: '#06C755' }}>LINE</span>
+              </div>
+              <div>
+                <p className="text-white font-black text-sm leading-tight">強みを活かす方法を無料配信中</p>
+                <p className="text-white/70 text-[10px] mt-0.5">ブルーム診断 公式LINE</p>
+              </div>
             </div>
-            <p className="text-white/70 text-xs font-bold leading-snug">
-              強みを活かせる場所・詳細をLINEで配信中
-            </p>
-            <p className="text-white/30 text-[10px] mt-0.5">友だち追加で受け取る →</p>
-          </div>
-          <div className="flex-shrink-0 text-right">
-            <span className="text-xs font-black" style={{ color: '#06C755' }}>無料</span>
+            <div className="flex-shrink-0 ml-3 bg-white px-3 py-1.5">
+              <span className="text-[11px] font-black" style={{ color: '#06C755' }}>友だち追加 →</span>
+            </div>
           </div>
         </a>
 
