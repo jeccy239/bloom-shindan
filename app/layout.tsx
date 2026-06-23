@@ -36,18 +36,27 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'ブルーム診断',
-  url: 'https://bloom-shindan.vercel.app',
-  description: '50問に答えるだけで、あなたのパーソナリティタイプと戦闘力スコアを算出する無料性格診断。',
-  applicationCategory: 'LifestyleApplication',
-  operatingSystem: 'Web',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
-  author: { '@type': 'Organization', name: '株式会社LEVAN', url: 'https://levan.sakuraweb.com' },
-  inLanguage: 'ja',
-};
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'ブルーム診断',
+    alternateName: 'Bloom診断',
+    url: 'https://bloom-shindan.vercel.app',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'ブルーム診断',
+    url: 'https://bloom-shindan.vercel.app',
+    description: '50問に答えるだけで、あなたのパーソナリティタイプと戦闘力スコアを算出する無料性格診断。',
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'Web',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
+    author: { '@type': 'Organization', name: '株式会社LEVAN', url: 'https://levan.sakuraweb.com' },
+    inLanguage: 'ja',
+  },
+];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
