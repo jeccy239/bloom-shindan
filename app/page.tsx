@@ -2,8 +2,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'ブルーム診断 | あなたの本質を分析する',
-  description: '50の問いに答えるだけで、あなたのパーソナリティタイプと戦闘力スコアが算出される。16タイプのブルーム診断。',
+  title: 'ブルーム診断 | SNSで話題の性格診断。あなたの本質を16タイプで分析',
+  description: '今SNSで話題。50問に答えるだけであなたのパーソナリティタイプ・戦闘力・隠れた強みが判明。16タイプの異世界ギルド世界観で本質を徹底分析。完全無料で受けられる性格診断。',
 };
 
 const TYPE_LIST = [
