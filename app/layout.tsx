@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   authors: [{ name: '株式会社LEVAN' }],
   creator: '株式会社LEVAN',
   publisher: '株式会社LEVAN',
+  verification: { google: 'w2GT8HoSoX78ZIAWTknlR0qnEhK_ZC7byNzEWQgoF3g' },
   robots: { index: true, follow: true },
   alternates: { canonical: BASE_URL },
   openGraph: {
