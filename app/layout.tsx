@@ -43,6 +43,11 @@ const jsonLd = [
     name: 'ブルーム診断',
     alternateName: 'Bloom診断',
     url: 'https://bloom-shindan.vercel.app',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://bloom-shindan.vercel.app/result/{search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
   },
   {
     '@context': 'https://schema.org',

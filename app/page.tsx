@@ -50,9 +50,57 @@ const STATS = [
   { v: '15〜20', u: '分', l: '所要時間' },
 ];
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'ブルーム診断とは何ですか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ブルーム診断は、50問の質問に答えるだけであなたのパーソナリティタイプと戦闘力スコアを算出する性格診断です。16タイプの異世界ギルド世界観をもとに、あなたの本質・強み・弱み・人間関係パターンを深く分析します。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'ブルーム診断は無料で受けられますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'はい、基本の診断は完全無料です。診断結果ページでは16タイプのうちあなたのタイプと詳しい解説が無料で表示されます。さらに深い分析を希望する場合はAI深層分析レポート（¥480）をご利用いただけます。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '何タイプありますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ブルーム診断には16タイプあります。アークセージ・シャドウストラテジスト・ソウルヒーラー・アイアンガーディアン・ワールドメーカー・エンペラーロード・オラクル・アーキテクト・フロンティア・インフルエンサー・マスタースミス・レボリューショナー・フレイムスピーカー・フィールドキーパー・ワードメイジ・ソウルケアラーの16種類です。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '何問の質問がありますか？所要時間は？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '全50問の質問に答えます。所要時間は15〜20分程度です。スマートフォンでもパソコンでも受けられます。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'AI深層分析レポートとは何ですか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'AI深層分析レポートは、あなたの診断結果をもとにClaudeが生成する詳細なパーソナリティ分析レポートです（¥480の一回払い）。あなたの本質・隠れた強み・挑戦状・人間関係の地図・明日からの一歩の5セクションを詳しく分析します。',
+      },
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex flex-col px-6 py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <div className="max-w-sm mx-auto w-full flex flex-col min-h-[90vh] justify-between">
 
         <div>

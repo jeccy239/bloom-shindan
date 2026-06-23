@@ -37,6 +37,30 @@ export async function generateMetadata(
   };
 }
 
-export default function ResultLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export default async function ResultLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ typeId: string }>;
+}) {
+  const { typeId } = await params;
+  const t = BLOOM_TYPES[typeId as BloomTypeId];
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ブルーム診断', item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: '診断結果', item: `${BASE_URL}/result` },
+      ...(t ? [{ '@type': 'ListItem', position: 3, name: `${t.catchTitle}（${t.jobClass}）`, item: `${BASE_URL}/result/${typeId}` }] : []),
+    ],
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      {children}
+    </>
+  );
 }
